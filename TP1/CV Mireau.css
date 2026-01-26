@@ -1,0 +1,85 @@
+ body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: slategray;
+    background-color: aliceblue;
+ }
+.section{
+   background: white;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    border-left: 7px solid slategray; 
+}
+
+.contact{
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: aliceblue;
+    background-color:slategray;
+}
+
+.description{
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    padding-left: 30px;
+}
+
+.details-formation{
+    color : slategray;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 150%;
+    background-color:white;
+    font-style: bold;
+}
+
+.annee{
+    color: rgb(170, 175, 180);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 100%;
+    padding-left:25px;
+}
+
+.sep{
+    color: slategray;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 100%;
+    padding-left:40px;
+}
+
+img{
+    object-fit: cover;
+    border-radius: 50%;
+}
+h1{
+    color : white;
+    font-family:'Times New Roman', Times, serif;
+    font-size: 300%;
+    background-color: slategray;
+}
+
+h2{
+    color : white;
+    font-family:'Times New Roman', Times, serif;
+    font-size: 200%;
+    font-style: bold;
+    background-color: slategray;
+}
+
+h3,h4{
+    color : slategray;
+    font-family:'Times New Roman', Times, serif;
+    font-size: 200%;
+    font-style: bold;
+    background-color: white;
+}
+
+.no-bullets{
+    list-style: none;
+    line-height: 30px;
+}
+.bullets{
+    list-style-type: square;
+}
+#identity ul li{
+    text-align: center;
+    background-color: slategrey;
+}
