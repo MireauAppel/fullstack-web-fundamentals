@@ -83,3 +83,7 @@ h3,h4{
     text-align: center;
     background-color: slategrey;
 }
+.lang{
+    display: inline-block;
+    width:150px;
+}
