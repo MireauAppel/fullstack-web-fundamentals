@@ -45,10 +45,6 @@
     padding-left:40px;
 }
 
-img{
-    object-fit: cover;
-    border-radius: 50%;
-}
 h1{
     color : white;
     font-family:'Times New Roman', Times, serif;
