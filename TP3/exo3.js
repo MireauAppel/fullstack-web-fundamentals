@@ -47,3 +47,32 @@ async function sum_5_numbers_async() {
 }
 
 sum_5_numbers_async();
+function one_second() {
+    return new Promise((resolve) => {
+        setTimeout(resolve, 1000);
+    });
+}
+
+async function blink_text(text) {
+    let d = document.createElement("div");
+    d.innerText = text;
+    d.style.display = 'block';
+    document.querySelector('body').appendChild(d);
+
+    let div_visible = true;
+    while (true) {
+        await one_second();
+        if (div_visible === true) {
+            div_visible = false;
+            d.style.display = 'none';
+        } else {
+            div_visible = true;
+            d.style.display = 'block';
+        }
+    }
+}
+
+function main() {
+    blink_text('Magic!'); 
+    sum_5_numbers_async();
+}
