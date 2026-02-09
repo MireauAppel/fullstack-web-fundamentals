@@ -31,5 +31,4 @@ function compteur(){
     }
     
 }
-console.log("bonjour");
-compteur();
+
