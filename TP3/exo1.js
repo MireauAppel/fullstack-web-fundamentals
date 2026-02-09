@@ -28,7 +28,7 @@ function compteur(){
         clearInterval(timer);
         timer = null;
         bouton.innerText = "Start";
-    }
-    
+    }   
 }
+
 
