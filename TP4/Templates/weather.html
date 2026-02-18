@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Météo Serveur</title>
+</head>
+<body>
+    <h1>Station</h1>
+    <form action="/meteo" method="GET">
+        <input type="text" name="city" placeholder="Ville" list="station-list" required>
+        <datalist id="station-list">
+            {% for station in stations %}
+                <option value="{{ station }}"></option>
+            {% endfor %}
+        </datalist>
+        <input type="submit" value="Soumettre">
+    </form>
+
+    <hr>
+
+    {% if weather %}
+        <h2>Météo à {{ weather.city }}</h2>
+        <p>Vitesse du vent : {{ weather.wind }} m/s</p>
+        <p>Température : {{ weather.temp }} degrés Celsius</p>
+        <p>Pluie dans la dernière heure : {{ weather.rain }} mm</p>
+    {% endif %}
+</body>
+</html>

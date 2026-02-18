@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Météo Client</title>
+</head>
+<body>
+    <h1>Consulter la Météo</h1>
+    
+    <form id="weatherForm">
+        <input type="text" id="cityInput" placeholder="Ville (ex: MARSEILLE)" required>
+        <button type="submit">Soumettre</button>
+    </form>
+
+    <div id="result"></div>
+
+    <script>
+        const API_KEY = "eyJ4NXQiOiJZV0kxTTJZNE1qWTNOemsyTkRZeU5XTTRPV014TXpjek1UVmhNbU14T1RSa09ETXlOVEE0Tnc9PSIsImtpZCI6ImdhdGV3YXlfY2VydGlmaWNhdGVfYWxpYXMiLCJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJtaXIuYXBsQGNhcmJvbi5zdXBlciIsImFwcGxpY2F0aW9uIjp7Im93bmVyIjoibWlyLmFwbCIsInRpZXJRdW90YVR5cGUiOm51bGwsInRpZXIiOiJVbmxpbWl0ZWQiLCJuYW1lIjoiRGVmYXVsdEFwcGxpY2F0aW9uIiwiaWQiOjM3MzEwLCJ1dWlkIjoiNmFiOWJhYTEtMGM0Ni00N2M3LTljMDUtOTJkOTgzM2Q3OWQzIn0sImlzcyI6Imh0dHBzOlwvXC9wb3J0YWlsLWFwaS5tZXRlb2ZyYW5jZS5mcjo0NDNcL29hdXRoMlwvdG9rZW4iLCJ0aWVySW5mbyI6eyI1MFBlck1pbiI6eyJ0aWVyUXVvdGFUeXBlIjoicmVxdWVzdENvdW50IiwiZ3JhcGhRTE1heENvbXBsZXhpdHkiOjAsImdyYXBoUUxNYXhEZXB0aCI6MCwic3RvcE9uUXVvdGFSZWFjaCI6dHJ1ZSwic3Bpa2VBcnJlc3RMaW1pdCI6MCwic3Bpa2VBcnJlc3RVbml0Ijoic2VjIn19LCJrZXl0eXBlIjoiUFJPRFVDVElPTiIsInN1YnNjcmliZWRBUElzIjpbeyJzdWJzY3JpYmVyVGVuYW50RG9tYWluIjoiY2FyYm9uLnN1cGVyIiwibmFtZSI6IkRvbm5lZXNQdWJsaXF1ZXNPYnNlcnZhdGlvbiIsImNvbnRleHQiOiJcL3B1YmxpY1wvRFBPYnNcL3YxIiwicHVibGlzaGVyIjoiYmFzdGllbmciLCJ2ZXJzaW9uIjoidjEiLCJzdWJzY3JpcHRpb25UaWVyIjoiNTBQZXJNaW4ifV0sImV4cCI6MTc3MTUzMjg5NywidG9rZW5fdHlwZSI6ImFwaUtleSIsImlhdCI6MTc3MTQ0NjQ5NywianRpIjoiYjE4MDc0ODgtMzI3ZC00MmYwLThkMmUtN2IzM2ZiNGQ2MmJlIn0=.Lddw4lhY5iPsw8Jbsv4ymX9lRvtyn30_egQM_vbBUktdtFM3fzGae0dVNnOczrhL7hLlIPdSeLr0CC2LrDyL4mIBlGz6SIjIuSvCF0qDg3PW3UvXC0dz5kmb80KyA9Vuwpuad1nBKKxDPC88Tz5Qkb8wLRwDj0I8KThHqz9LHAq-EHpr_MhtZth7QScUXpOhO5E1HDvsDG6iIEgeRVOH6ixfQJ5IIzcvJz4wJUu22aukSMIsZ4nI1wp7VBVjRh_rekMa-egSAdjSaBKcuvFoEUqUQXDJrglzgwbZaPL_a2gbBQLLNlNR3GvAcs7SXr__d1WQhqMdbmxWOmOpKiFLCQ==";
+       
+        async function getStationId(cityName) {
+            const url = `https://api.allorigins.win/raw?url=https://public-api.meteofrance.fr/public/DPObs/v1/liste-stations?apikey=${API_KEY}`;
+            const response = await fetch(url);
+            const csvText = await response.text();
+            
+            console.log("Réponse brute de api: ", csvText);
+
+            const lines = csvText.split('\n');
+            for (let line of lines) {
+                if (line.includes(cityName)) {
+                    return line.split(';')[0]; 
+                }
+            }
+            throw new Error("Station introuvable");
+        }
+
+        
+        async function getWeather(stationId) {
+            const url = `https://api.allorigins.win/raw?url=https://public-api.meteofrance.fr/public/DPObs/v1/observation?id_station=${stationId}&apikey=${API_KEY}`;
+            return await response.json();
+        }
+
+       
+        document.getElementById('weatherForm').addEventListener('submit', async function(event) {
+            event.preventDefault();
+            const city = document.getElementById('cityInput').value.toUpperCase();
+            const resultDiv = document.getElementById('result');
+            
+            resultDiv.innerHTML = "<p>Chargement...</p>";
+
+            try {
+                const stationId = await getStationId(city);
+                const data = await getWeather(stationId);
+
+                resultDiv.innerHTML = `
+                    <h2>Météo à ${city}</h2>
+                    <p>Vitesse du vent : ${data.vent_vitesse} m/s</p>
+                    <p>Température : ${data.temperature} degrés Celsius</p>
+                    <p>Pluie dans la dernière heure : ${data.precipitations} mm</p>
+                `;
+            } catch (error) {
+                resultDiv.innerHTML = `<p style="color: red;">Erreur : ${error.message}</p>`;
+            }
+        });
+    </script>
+</body>
+</html>
