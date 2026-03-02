@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template # type: ignore
 import movies
 app = Flask(__name__)
 db_path = './movies.json'
