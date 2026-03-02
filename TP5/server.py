@@ -3,6 +3,11 @@ import movies
 app = Flask(__name__)
 db_path = './movies.json'
 movies_db = movies.MoviesDB(db_path)
+
+@app.route('/')
+def movie_list():
+    movies = movies_db.list()
+    return render_template('movie-list.html', movies=movies)
 @app.route('/movie-details/<id>')
 def movie_details(id):
     movie = movies_db.read(int(id))
