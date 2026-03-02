@@ -1,4 +1,4 @@
-from flask import Flask, render_template # type: ignore
+from flask import Flask, render_template, redirect, request # type: ignore
 import movies
 app = Flask(__name__)
 db_path = './movies.json'
@@ -12,3 +12,30 @@ def movie_list():
 def movie_details(id):
     movie = movies_db.read(int(id))
     return render_template('movie-details.html', movie=movie)
+
+@app.get('/add-movie-form')
+def add_movie_form():
+    return render_template('add-movie-form.html')
+
+@app.get('/add-movie')
+def add_movie():
+    movies_db.create()
+    movies_db.save(db_path)
+    return redirect ('/')
+
+@app.get('/edit-movie/<id>')
+def edit_movie(id):
+
+
+@app.get('/delete-movie/<id>')
+def delete_movie(id):
+    movies_db.delete(int(id))
+    movies_db.save(db_path)
+    return redirect('/')
+
+@app.route('/delete-movie-form/<id>')
+def delete_movie_form(id):
+    movie = movies_db.read(int(id))
+    if movie == None:
+        return redirect('/')
+    return render_template('delete-movie-form.html' , movie=movie)
