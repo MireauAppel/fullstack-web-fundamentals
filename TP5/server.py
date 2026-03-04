@@ -19,12 +19,36 @@ def add_movie_form():
 
 @app.get('/add-movie')
 def add_movie():
-    movies_db.create()
+    title = request.args['title']
+    year = request.args['year']
+    actors = request.args['actors']
+    plot = request.args['plot']
+    poster = request.args['poster']
+    
+    movies_db.create(title, year, actors, plot, poster)
     movies_db.save(db_path)
-    return redirect ('/')
+    
+    return redirect('/')
+
+@app.route('/edit-movie-form/<id>')
+def edit_movie_form(id):
+    movie = movies_db.read(int(id))
+    if movie == None:
+        return redirect('/')
+    return render_template('edit-movie-form.html', movie=movie)
 
 @app.get('/edit-movie/<id>')
 def edit_movie(id):
+    title = request.args['title']
+    year = request.args['year']
+    actors = request.args['actors']
+    plot = request.args['plot']
+    poster = request.args['poster']
+    
+    movies_db.update(int(id), title, year, actors, plot, poster)
+    movies_db.save(db_path)
+    
+    return redirect('/')
 
 
 @app.get('/delete-movie/<id>')
