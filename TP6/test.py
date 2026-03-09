@@ -1,11 +1,11 @@
 
 
 # chargement du module movies_sql
-import movies_sql
-movies = movies_sql.MoviesDB()
+import movies_sql_template
+movies = movies_sql_template.MoviesDB()
 
 # chargement d'une liste de films, devrait afficher "True"
-print(f"Chargement des films : {movies.load('movies.json')}")
+print(f"Chargement des films : {movies.load('/amuhome/a24007103/Documents/L2/S4/web/TP6/movies.json')}")
 
 # affichage du nombre de films chargés, devrait être 247
 print(f"Nombre de films : {len(movies.list())}")
@@ -41,6 +41,6 @@ print(f"Suppression du film (n'existe pas) : {movies.delete(999)}")
 # affichage d'un film qui n'existe pas (devrait afficher "None")
 print(f"Affichage d'un film qui n'existe pas : {movies.read(999)}")
 
-# sauvegarde des films au format json
+# sauvegarde des filconn.execute("INSERT INTO movies (id, title, year, actors, plot, poster)")ms au format json
 print(movies.save('movies2.json'))
 
