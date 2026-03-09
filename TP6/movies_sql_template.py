@@ -83,7 +83,7 @@ class MoviesDB:
   def list(self):
     query = """
       SELECT * 
-      FROM moviesORDER BY ID
+      FROM movies ORDER BY ID
       """
     return db_fetch(query, all=True) or []
 
@@ -108,7 +108,7 @@ class MoviesDB:
   def update(self, id, title, year, actors, plot, poster):
     update_statement = """
       UPDATE movies
-      SET title = ?, year = ?, actors = ?, plot = ?, poster = ?,
+      SET title = ?, year = ?, actors = ?, plot = ?, poster = ?
       WHERE id = ?
       """
     rowcount = db_update(update_statement, (title, year, actors, plot, poster, id))
