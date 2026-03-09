@@ -81,15 +81,28 @@ class MoviesDB:
 
 
   def list(self):
-    pass  #TODO
+    query = """
+      SELECT * 
+      FROM moviesORDER BY ID
+      """
+    return db_fetch(query, all=True) or []
 
 
   def create(self, title, year, actors, plot, poster):
-    pass  #TODO
+    insert_statement = """
+      INSERT INTO movies (title, year, actors, plot, poster)
+      VALUES (?,?,?,?,?)
+      """
+    return db_insert(insert_statement, (title, year, actors, plot, poster))
 
 
   def read(self, id):
-    pass  #TODO
+    read_statement = """
+      SELECT *
+      FROM movies
+      WHERE id = ?
+      """
+    return db_fetch(read_statement, (id,), all=False)
 
 
   def update(self, id, title, year, actors, plot, poster):
