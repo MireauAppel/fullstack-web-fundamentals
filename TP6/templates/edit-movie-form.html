@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <title>Modifier un film</title>
+</head>
+<body>
+    <h1> Modifier le film </h1>
+    <form action="/edit-movie/{{ movie.id }}" method="get">
+        Titre : <input type="text" name="title" value="{{ movie.title }}"><br>
+        Année : <input type="text" name="year" value="{{ movie.year }}"><br>
+        Acteurs : <input type="text" name="actors" value="{{ movie.actors }}"><br>
+        Résumé : <input type="text" name="plot" value="{{ movie.plot }}"><br>
+        Affiche (URL) : <input type="text" name="poster" value="{{ movie.poster }}"><br>
+        <br>
+        <input type="submit" value="Enregistrer">
+    </form>
+    <br>
+    <form action="/">
+        <input type="submit" value="Annuler">
+    </form>
+</body>
+</html>
