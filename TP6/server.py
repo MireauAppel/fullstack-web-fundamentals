@@ -1,8 +1,8 @@
 from flask import Flask, render_template, redirect, request # type: ignore
-import movies
+import movies_sql_template
 app = Flask(__name__)
 db_path = './movies.json'
-movies_db = movies.MoviesDB(db_path)
+movies_db = movies_sql_template.MoviesDB(db_path)
 
 @app.route('/')
 def movie_list():
