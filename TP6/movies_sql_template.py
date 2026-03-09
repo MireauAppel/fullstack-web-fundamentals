@@ -44,6 +44,16 @@ class MoviesDB:
 
   def __init__(self, db_path=None):
     # TODO: create movies table here
+    with sqlite3.connect(DBFILENAME) as conn:
+      db_run("DROP TABLE IF EXISTS movies");
+      db_run("""CREATE TABLE movies (
+                   id INTEGER PRIMARY KEY AUTOINCREMENT,
+                   title TEXT,
+                   year INTEGER,
+                   actors TEXT,
+                   plot TEXT,
+                   poster TEXT)
+                  """)
     if not(db_path is None):
       self.load(db_path)
 
