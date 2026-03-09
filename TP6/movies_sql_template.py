@@ -106,7 +106,13 @@ class MoviesDB:
 
 
   def update(self, id, title, year, actors, plot, poster):
-    pass  #TODO
+    update_statement = """
+      UPDATE movies
+      SET title = ?, year = ?, actors = ?, plot = ?, poster = ?,
+      WHERE id = ?
+      """
+    rowcount = db_update(update_statement, (title, year, actors, plot, poster, id))
+    return rowcount > 0
 
 
   def delete(self, id):
