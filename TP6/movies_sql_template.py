@@ -116,4 +116,10 @@ class MoviesDB:
 
 
   def delete(self, id):
-    pass  #TODO
+    delete_statement = """
+      DELETE
+      FROM movies 
+      WHERE id = ?
+      """
+    rowcount = db_update(delete_statement, (id,))
+    return rowcount > 0
