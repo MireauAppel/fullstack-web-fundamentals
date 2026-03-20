@@ -1,0 +1,14 @@
+{% include 'header.html' %}
+<h2>Nouvel utilisateur</h2>
+<form action="/new_user" method="post" class="w-50">
+    <div class="mb-3">
+        <label>Nom :</label>
+        <input type="text" name="name" class="form-control" required>
+    </div>
+    <div class="mb-3">
+        <label>Mot de passe :</label>
+        <input type="password" name="password" class="form-control" required>
+    </div>
+    <button type="submit" class="btn btn-success">S'inscrire</button>
+</form>
+{% include 'footer.html' %}

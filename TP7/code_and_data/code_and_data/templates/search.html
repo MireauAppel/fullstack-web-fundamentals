@@ -1,0 +1,16 @@
+{% include 'header.html' %}
+<h2>{{ found.num_found }} recettes trouvées</h2>
+<div class="row row-cols-1 row-cols-md-3 row-cols-lg-4 g-4">
+    {% for res in found.results %}
+    <div class="col">
+        <div class="card h-100 mb-3">
+            <img src="{{ res.img }}" class="card-img-top" alt="...">
+            <div class="card-body">
+                <h5 class="card-title">{{ res.title }}</h5>
+                <a href="/read/{{ res.entry }}" class="btn btn-primary">Voir la recette</a>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% include 'footer.html' %}
