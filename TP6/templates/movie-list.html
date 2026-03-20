@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="UTF-8">
+        <title>Meilleurs films de tout les temps</title>
+    </head>
+    <body>
+    <h1>Meilleurs films de tout les temps</h1>
+    
+    <a href="/add-movie-form">Ajouter un nouveau film</a>
+    
+    <ul>
+    {% for movie in movies %}
+        <li>
+            <h3>{{ movie.title }}
+            <a href="/movie-details/{{ movie.id }}">Details</a>
+            <a href="/edit-movie-form/{{ movie.id }}">Edit</a> <a href="/delete-movie-form/{{ movie.id }}">Delete</a>
+            </h3>
+        </li>
+    {% endfor %}
+    </ul>
+    
+    </body>
+</html>
