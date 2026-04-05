@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Mon Tableau de Bord</title>
+</head>
+<body>
+    <nav style="background-color: #eee; padding: 10px; margin-bottom: 20px;">
+        <a href="/">Accueil</a> | 
+        Connecté en tant que <strong>{{ session.email }}</strong> | 
+        <a href="/logout">Se déconnecter</a>
+    </nav>
+
+    <h1>Mes Demandes de Réservation</h1>
+
+    {% if bookings %}
+        <ul>
+            {% for b in bookings %}
+                <li>
+                    <strong>{{ b['accommodation_name'] }}</strong><br>
+                    Du {{ b['start_date'] }} au {{ b['end_date'] }}<br>
+                    Statut : 
+                    {% if b['status'] == 'pending' %}
+                        <span style="color: orange;">En attente de confirmation</span>
+                    {% elif b['status'] == 'confirmed' %}
+                        <span style="color: green;">Acceptée</span>
+                    {% else %}
+                        <span style="color: red;">Refusée</span>
+                    {% endif %}
+                </li>
+                <br>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>Vous n'avez fait aucune demande pour le moment.</p>
+    {% endif %}
+
+</body>
+</html>

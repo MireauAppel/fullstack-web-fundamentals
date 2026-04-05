@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ acc['name'] }} - Lupec</title>
+</head>
+<body>
+    <h1>{{ acc['name'] }}</h1>
+    <p>{{ acc['description'] }}</p>
+    <p><strong>Prix :</strong> {{ acc['price'] }}€/nuit | <strong>Capacité :</strong> {{ acc['capacity'] }} personnes</p>
+
+    <div style="background-color: #f9f9f9; padding: 15px; margin-top: 20px; border: 1px solid #ccc;">
+        {% if session.user_id %}
+            <h3>Faire une demande de réservation</h3>
+            <form method="POST" action="/book">
+                <input type="hidden" name="accommodation_id" value="{{ acc['id'] }}">
+                
+                <label>Date d'arrivée :</label>
+                <input type="date" name="start_date" required>
+                
+                <label>Date de départ :</label>
+                <input type="date" name="end_date" required>
+                
+                <button type="submit">Confirmer la demande</button>
+            </form>
+        {% else %}
+            <p><a href="/login">Connectez-vous</a> pour pouvoir réserver ce logement.</p>
+        {% endif %}
+    </div>
+
+    <br>
+    <a href="/">Retour à l'accueil</a>
+</body>
+</html>

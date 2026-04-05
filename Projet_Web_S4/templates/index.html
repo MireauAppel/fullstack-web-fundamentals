@@ -7,7 +7,7 @@
 <body>
     <nav style="background-color: #eee; padding: 10px; margin-bottom: 20px;">
         <a href="/">Accueil</a> | 
-        
+        <a href="/dashboard">Mon Tableau de bord</a>
         {% if session.user_id %}
             Connecté en tant que <strong>{{ session.email }}</strong> | 
             <a href="/logout">Se déconnecter</a>
@@ -15,6 +15,7 @@
             <a href="/login">Se connecter</a> | 
             <a href="/register">S'inscrire</a>
         {% endif %}
+        
     </nav>
 
     <h1>Bienvenue au Domaine de Lupec</h1>
@@ -25,6 +26,7 @@
             <li>
                 <strong>{{ acc['name'] }}</strong> - {{ acc['price'] }}€/nuit
                 <p>{{ acc['description'] }}</p>
+                <a href="/accommodation/{{ acc['id'] }}">Voir les détails et réserver</a>
             </li>
         {% endfor %}
     </ul>
