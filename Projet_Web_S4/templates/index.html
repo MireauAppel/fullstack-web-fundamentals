@@ -5,6 +5,18 @@
     <title>Domaine de Lupec</title>
 </head>
 <body>
+    <nav style="background-color: #eee; padding: 10px; margin-bottom: 20px;">
+        <a href="/">Accueil</a> | 
+        
+        {% if session.user_id %}
+            Connecté en tant que <strong>{{ session.email }}</strong> | 
+            <a href="/logout">Se déconnecter</a>
+        {% else %}
+            <a href="/login">Se connecter</a> | 
+            <a href="/register">S'inscrire</a>
+        {% endif %}
+    </nav>
+
     <h1>Bienvenue au Domaine de Lupec</h1>
     
     <h2>Nos Logements :</h2>
