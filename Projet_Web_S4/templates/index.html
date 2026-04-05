@@ -7,15 +7,21 @@
 <body>
     <nav style="background-color: #eee; padding: 10px; margin-bottom: 20px;">
         <a href="/">Accueil</a> | 
-        <a href="/dashboard">Mon Tableau de bord</a>
+        
         {% if session.user_id %}
             Connecté en tant que <strong>{{ session.email }}</strong> | 
+            
+            {% if session.is_admin == 1 %}
+                <a href="/admin" style="color: red; font-weight: bold;">[Gestion du Domaine]</a> |
+            {% else %}
+                <a href="/dashboard">Mon Tableau de bord</a> |
+            {% endif %}
+            
             <a href="/logout">Se déconnecter</a>
         {% else %}
             <a href="/login">Se connecter</a> | 
             <a href="/register">S'inscrire</a>
         {% endif %}
-        
     </nav>
 
     <h1>Bienvenue au Domaine de Lupec</h1>
