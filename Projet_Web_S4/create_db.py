@@ -1,7 +1,7 @@
 import sqlite3
 
 # Nom du fichier de la base de données
-DBFILENAME = 'database.db'
+DBFILENAME = 'lupec_v1.db'
 
 def init_db(db_name=DBFILENAME):
     with sqlite3.connect(db_name) as conn:
@@ -59,7 +59,7 @@ def init_db(db_name=DBFILENAME):
         # Création de quelques logements pour le domaine
         accommodations = [
             {
-                'name': 'La veille maison', 
+                'name': 'La Veille maison', 
                 'description': 'Maison familiale spacieuse idéale pour les groupes de moyenne taille. Accès direct au jardin.', 
                 'image_url': 'grand_gite.jpg', 
                 'capacity': 10, 
