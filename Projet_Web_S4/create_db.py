@@ -101,7 +101,7 @@ def init_db(db_name=DBFILENAME):
             cur.execute(insert_acc, acc)
             
         conn.commit()
-        print("La base de données 'database.db' a été créée et pré-remplie avec succès !")
+        print("La base de données 'lupec_v1.db' a été créée et pré-remplie avec succès !")
 
 if __name__ == '__main__':
     init_db()
