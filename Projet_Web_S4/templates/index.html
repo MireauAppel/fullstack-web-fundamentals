@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Domaine de Lupec</title>
+</head>
+<body>
+    <h1>Bienvenue au Domaine de Lupec</h1>
+    
+    <h2>Nos Logements :</h2>
+    <ul>
+        {% for acc in accommodations %}
+            <li>
+                <strong>{{ acc['name'] }}</strong> - {{ acc['price'] }}€/nuit
+                <p>{{ acc['description'] }}</p>
+            </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
