@@ -59,6 +59,45 @@ def logout():
     session.clear()
     return redirect(url_for('index'))
 
+# ==========================================
+# ROUTES DES LOGEMENTS ET RÉSERVATIONS
+# ==========================================
+
+@app.route('/accommodation/<int:acc_id>')
+def accommodation(acc_id):
+    """Affiche les détails d'un logement spécifique"""
+    acc = data_model.get_accommodation_by_id(acc_id)
+    if not acc:
+        return "Logement introuvable", 404
+    return render_template('accommodation.html', acc=acc)
+
+@app.route('/book', methods=['POST'])
+def book():
+    """Traite le formulaire de réservation"""
+    # Si l'utilisateur n'est pas connecté, on le renvoie au login
+    if 'user_id' not in session:
+        return redirect(url_for('login'))
+        
+    user_id = session['user_id']
+    acc_id = request.form['accommodation_id']
+    start_date = request.form['start_date']
+    end_date = request.form['end_date']
+    
+    # On enregistre la réservation dans la base de données
+    data_model.create_booking(user_id, acc_id, start_date, end_date)
+    
+    # On redirige vers le tableau de bord client
+    return redirect(url_for('dashboard'))
+
+@app.route('/dashboard')
+def dashboard():
+    """Affiche l'historique des réservations du client"""
+    if 'user_id' not in session:
+        return redirect(url_for('login'))
+        
+    # On récupère toutes les réservations de cet utilisateur
+    bookings = data_model.get_user_bookings(session['user_id'])
+    return render_template('dashboard.html', bookings=bookings)
 
 if __name__ == '__main__':
     app.run(debug=True)
