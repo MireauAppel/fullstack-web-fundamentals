@@ -99,5 +99,36 @@ def dashboard():
     bookings = data_model.get_user_bookings(session['user_id'])
     return render_template('dashboard.html', bookings=bookings)
 
+# ==========================================
+# ROUTES ADMINISTRATEUR
+# ==========================================
+
+@app.route('/admin')
+def admin_dashboard():
+    """Affiche le tableau de bord du propriétaire"""
+    # On vérifie que la personne est connectée ET qu'elle est admin (is_admin == 1)
+    if session.get('is_admin') != 1:
+        return "Accès refusé. Cette page est réservée au propriétaire.", 403
+        
+    # On utilise la fonction de data_model pour récupérer TOUTES les réservations
+    bookings = data_model.get_all_bookings()
+    return render_template('admin_dashboard.html', bookings=bookings)
+
+@app.route('/admin/update_booking', methods=['POST'])
+def update_booking():
+    """Permet au propriétaire d'accepter ou refuser une demande"""
+    if session.get('is_admin') != 1:
+        return "Accès refusé.", 403
+        
+    booking_id = request.form['booking_id']
+    new_status = request.form['status'] # 'confirmed' ou 'refused'
+    
+    # On met à jour le statut dans la base de données
+    data_model.update_booking_status(booking_id, new_status)
+    
+    # On recharge la page admin
+    return redirect(url_for('admin_dashboard'))
+
+
 if __name__ == '__main__':
     app.run(debug=True)
