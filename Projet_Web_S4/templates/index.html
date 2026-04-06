@@ -34,27 +34,33 @@
         </div>
     </nav>
 
-    <h1>Plan interactif du Domaine de Lupec</h1>
-    <p>Cliquez sur un logement sur la carte pour voir ses caractéristiques et son emplacement.</p>
+    <h1 style="text-align: center;">Plan interactif du Domaine de Lupec</h1>
+    <p class="subtitle">Cliquez sur un hébergement sur la carte pour voir ses caractéristiques.</p>
 
-    <div id="domain-map">
-        {% for acc in accommodations %}
-            <div class="map-marker marker-{{ loop.index }}"
-                 data-name="{{ acc['name'] }}"
-                 data-price="{{ acc['price'] }}"
-                 data-desc="{{ acc['description'] }}"
-                 data-id="{{ acc['id'] }}"
-                 title="{{ acc['name'] }}">
-                🏠
-            </div>
-        {% endfor %}
-    </div>
+    <div class="map-container">
+        
+        <div id="domain-map">
+            {% for acc in accommodations %}
+                <div class="map-marker marker-{{ loop.index }}"
+                     data-name="{{ acc['name'] }}"
+                     data-price="{{ acc['price'] }}"
+                     data-desc="{{ acc['description'] }}"
+                     data-id="{{ acc['id'] }}"
+                     title="{{ acc['name'] }}">
+                    
+                    {{ loop.index }}
+                    
+                </div>
+            {% endfor %}
+        </div>
 
-    <div id="info-panel">
-        <h3 style="margin-top: 0;">Sélectionnez un logement</h3>
-        <p id="info-desc">Survolez la carte et cliquez sur une maison pour découvrir les détails de l'hébergement.</p>
-        <p id="info-price"></p>
-        <a id="info-link" href="#" style="display: none;">Voir les détails et réserver</a>
+        <div id="info-panel">
+            <h3 style="margin-top: 0;">Sélectionnez un logement</h3>
+            <p id="info-desc">Survolez la carte et cliquez sur une pastille pour découvrir les détails de l'hébergement.</p>
+            <p id="info-price"></p>
+            <a id="info-link" href="#" style="display: none;">Voir les détails et réserver</a>
+        </div>
+
     </div>
 
 </body>
