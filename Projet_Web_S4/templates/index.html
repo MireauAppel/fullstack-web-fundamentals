@@ -3,8 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <title>Domaine de Lupec</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script src="{{ url_for('static', filename='map.js') }}" defer></script>
 </head>
 <body>
+
     <nav style="background-color: #eee; padding: 10px; margin-bottom: 20px;">
         <a href="/">Accueil</a> | 
         
@@ -24,17 +27,28 @@
         {% endif %}
     </nav>
 
-    <h1>Bienvenue au Domaine de Lupec</h1>
-    
-    <h2>Nos Logements :</h2>
-    <ul>
+    <h1>Plan interactif du Domaine de Lupec</h1>
+    <p>Cliquez sur un logement sur la carte pour voir ses caractéristiques et son emplacement.</p>
+
+    <div id="domain-map">
         {% for acc in accommodations %}
-            <li>
-                <strong>{{ acc['name'] }}</strong> - {{ acc['price'] }}€/nuit
-                <p>{{ acc['description'] }}</p>
-                <a href="/accommodation/{{ acc['id'] }}">Voir les détails et réserver</a>
-            </li>
+            <div class="map-marker marker-{{ loop.index }}"
+                 data-name="{{ acc['name'] }}"
+                 data-price="{{ acc['price'] }}"
+                 data-desc="{{ acc['description'] }}"
+                 data-id="{{ acc['id'] }}"
+                 title="{{ acc['name'] }}">
+                🏠
+            </div>
         {% endfor %}
-    </ul>
+    </div>
+
+    <div id="info-panel">
+        <h3 style="margin-top: 0;">Sélectionnez un logement</h3>
+        <p id="info-desc">Survolez la carte et cliquez sur une maison pour découvrir les détails de l'hébergement.</p>
+        <p id="info-price"></p>
+        <a id="info-link" href="#" style="display: none;">Voir les détails et réserver</a>
+    </div>
+
 </body>
 </html>
