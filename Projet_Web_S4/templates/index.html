@@ -34,33 +34,99 @@
         </div>
     </nav>
 
-    <h1 style="text-align: center;">Plan interactif du Domaine de Lupec</h1>
+   <h1 style="text-align: center;">Plan interactif du Domaine de Lupec</h1>
     <p class="subtitle">Cliquez sur un hébergement sur la carte pour voir ses caractéristiques.</p>
 
-    <div class="map-container">
+    <div class="map-layout-container">
         
-        <div id="domain-map">
+        <div id="main-area" class="map-area">
             {% for acc in accommodations %}
-                <div class="map-marker marker-{{ loop.index }}"
-                     data-name="{{ acc['name'] }}"
-                     data-price="{{ acc['price'] }}"
-                     data-desc="{{ acc['description'] }}"
-                     data-id="{{ acc['id'] }}"
-                     title="{{ acc['name'] }}">
-                    
-                    {{ loop.index }}
-                    
-                </div>
+                {% if acc['area_id'] == 'main' %} <div class="map-marker marker-{{ loop.index }}"
+                         data-name="{{ acc['name'] }}"
+                         data-price="{{ acc['price'] }}"
+                         data-desc="{{ acc['description'] }}"
+                         data-id="{{ acc['id'] }}"
+                         title="{{ acc['name'] }}">
+                        {{ loop.index }}
+                    </div>
+                {% endif %}
             {% endfor %}
+            <span class="area-label">Jardin Principal</span>
         </div>
 
-        <div id="info-panel">
-            <h3 style="margin-top: 0;">Sélectionnez un logement</h3>
-            <p id="info-desc">Survolez la carte et cliquez sur une pastille pour découvrir les détails de l'hébergement.</p>
-            <p id="info-price"></p>
-            <a id="info-link" href="#" style="display: none;">Voir les détails et réserver</a>
+        <div class="buildings-container">
+            <div id="building-large" class="map-area">
+                {% for acc in accommodations %}
+                    {% if acc['area_id'] == 'building-large' %}
+                        <div class="map-marker marker-{{ loop.index }}"
+                             data-name="{{ acc['name'] }}"
+                             data-price="{{ acc['price'] }}"
+                             data-desc="{{ acc['description'] }}"
+                             data-id="{{ acc['id'] }}"
+                             title="{{ acc['name'] }}">
+                            {{ loop.index }}
+                        </div>
+                    {% endif %}
+                {% endfor %}
+                <span class="area-label">Grange Principale</span>
+            </div>
+            
+            <div class="bottom-buildings-row">
+                <div class="map-area bottom-building">
+                     {% for acc in accommodations %}
+                        {% if acc['area_id'] == 'bottom-1' %}
+                            <div class="map-marker marker-{{ loop.index }}"
+                                 data-name="{{ acc['name'] }}"
+                                 data-price="{{ acc['price'] }}"
+                                 data-desc="{{ acc['description'] }}"
+                                 data-id="{{ acc['id'] }}"
+                                 title="{{ acc['name'] }}">
+                                {{ loop.index }}
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                    <span class="area-label">Studio G</span>
+                </div>
+                 <div class="map-area bottom-building">
+                     {% for acc in accommodations %}
+                        {% if acc['area_id'] == 'bottom-2' %}
+                            <div class="map-marker marker-{{ loop.index }}"
+                                 data-name="{{ acc['name'] }}"
+                                 data-price="{{ acc['price'] }}"
+                                 data-desc="{{ acc['description'] }}"
+                                 data-id="{{ acc['id'] }}"
+                                 title="{{ acc['name'] }}">
+                                {{ loop.index }}
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                    <span class="area-label">Studio H</span>
+                </div>
+                 <div class="map-area bottom-building isolated-building">
+                     {% for acc in accommodations %}
+                        {% if acc['area_id'] == 'bottom-isolated' %}
+                            <div class="map-marker marker-{{ loop.index }}"
+                                 data-name="{{ acc['name'] }}"
+                                 data-price="{{ acc['price'] }}"
+                                 data-desc="{{ acc['description'] }}"
+                                 data-id="{{ acc['id'] }}"
+                                 title="{{ acc['name'] }}">
+                                {{ loop.index }}
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                    <span class="area-label">Dépendance</span>
+                </div>
+            </div>
         </div>
 
+    </div>
+
+    <div id="info-panel" class="map-container">
+        <h3 style="margin-top: 0;">Sélectionnez un logement</h3>
+        <p id="info-desc">Survolez la carte et cliquez sur une pastille pour découvrir les détails de l'hébergement.</p>
+        <p id="info-price"></p>
+        <a id="info-link" href="#" style="display: none;">Voir les détails et réserver</a>
     </div>
 
 </body>
