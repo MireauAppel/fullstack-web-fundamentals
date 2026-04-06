@@ -11,23 +11,27 @@
 </head>
 <body>
 
-    <nav style="background-color: #eee; padding: 10px; margin-bottom: 20px;">
-        <a href="/">Accueil</a> | 
+    <nav id="main-nav">
+        <div class="nav-links">
+            <a href="/">Accueil</a>
+        </div>
         
-        {% if session.user_id %}
-            Connecté en tant que <strong>{{ session.email }}</strong> | 
-            
-            {% if session.is_admin == 1 %}
-                <a href="/admin" style="color: red; font-weight: bold;">[Gestion du Domaine]</a> |
+        <div class="nav-user">
+            {% if session.user_id %}
+                <span class="user-email">Bienvenue, {{ session.email }}</span>
+                
+                {% if session.is_admin == 1 %}
+                    <a href="/admin" class="btn-admin">Gestion du Domaine</a>
+                {% else %}
+                    <a href="/dashboard" class="btn-secondary">Mon Tableau de bord</a>
+                {% endif %}
+                
+                <a href="/logout" class="btn-logout">Se déconnecter</a>
             {% else %}
-                <a href="/dashboard">Mon Tableau de bord</a> |
+                <a href="/login" class="btn-secondary">Se connecter</a>
+                <a href="/register" class="btn-primary">S'inscrire</a>
             {% endif %}
-            
-            <a href="/logout">Se déconnecter</a>
-        {% else %}
-            <a href="/login">Se connecter</a> | 
-            <a href="/register">S'inscrire</a>
-        {% endif %}
+        </div>
     </nav>
 
     <h1>Plan interactif du Domaine de Lupec</h1>
