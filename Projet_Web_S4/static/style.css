@@ -1,24 +1,27 @@
 /* =========================================
-   1. VARIABLES DE COULEURS ET POLICES
+   1. PALETTE DE COULEURS (Inspirée de la maquette)
    ========================================= */
 :root {
-    --bg-color: #FAFAFA; /* Un blanc très légèrement cassé/crème */
-    --text-color: #333333;
-    --primary-color: #2C4C3B; /* Vert forêt élégant */
-    --secondary-color: #D4A373; /* Couleur terre/bois chaud */
-    --accent-color: #A3B18A; /* Vert sauge doux */
+    --bg-page: #F5F7F6;       /* Gris très clair/blanc cassé pour le fond */
+    --bg-map: #82A284;        /* Vert sauge doux pour le domaine */
+    --color-text: #2D3748;    /* Gris anthracite (plus doux que le noir pur) */
+    --color-primary: #2C423F; /* Vert sombre élégant pour les boutons/titres */
+    --color-white: #FFFFFF;
+    
+    --shadow-soft: 0 4px 20px rgba(0, 0, 0, 0.05); /* Ombre très légère */
+    --shadow-hover: 0 8px 25px rgba(0, 0, 0, 0.15); /* Ombre quand on survole */
     
     --font-title: 'Lora', serif;
     --font-text: 'Poppins', sans-serif;
 }
 
 /* =========================================
-   2. STYLE GLOBAL DU CORPS ET TEXTES
+   2. FONDATIONS ET TEXTES
    ========================================= */
 body {
     font-family: var(--font-text);
-    background-color: var(--bg-color);
-    color: var(--text-color);
+    background-color: var(--bg-page);
+    color: var(--color-text);
     margin: 0;
     padding: 0;
     line-height: 1.6;
@@ -26,74 +29,162 @@ body {
 
 h1, h2, h3 {
     font-family: var(--font-title);
-    color: var(--primary-color);
+    color: var(--color-primary);
     font-weight: 600;
 }
 
+/* On centre les titres principaux */
 h1 {
     text-align: center;
-    font-size: 2.5rem;
+    font-size: 2.2rem;
     margin-top: 40px;
+    margin-bottom: 10px;
+}
+
+p.subtitle {
+    text-align: center;
+    color: #666;
+    margin-bottom: 40px;
 }
 
 /* =========================================
-   3. LA BARRE DE NAVIGATION (Menu)
+   3. BARRE DE NAVIGATION
    ========================================= */
 #main-nav {
-    background-color: #ffffff;
+    background-color: var(--color-white);
     padding: 15px 40px;
     display: flex;
-    justify-content: space-between;
+    justify-content: space-between; /* Écarte le menu gauche du menu droit */
     align-items: center;
-    box-shadow: 0 2px 15px rgba(0,0,0,0.05); /* Petite ombre portée douce */
-    position: sticky;
-    top: 0;
-    z-index: 100;
+    box-shadow: var(--shadow-soft);
 }
 
 #main-nav a {
     text-decoration: none;
-    color: var(--primary-color);
+    color: var(--color-primary);
     font-weight: 500;
-    margin-left: 15px;
-    transition: all 0.3s ease;
+    margin-left: 20px;
+    transition: color 0.3s ease;
 }
 
 #main-nav a:hover {
-    color: var(--secondary-color);
+    color: var(--bg-map);
 }
 
 .user-email {
-    font-style: italic;
-    color: #666;
+    font-size: 0.9rem;
+    color: #888;
     margin-right: 15px;
 }
 
-/* =========================================
-   4. LES BOUTONS
-   ========================================= */
-.btn-primary, .btn-secondary, .btn-admin {
-    padding: 8px 16px;
-    border-radius: 5px;
+/* Boutons stylisés */
+.btn-primary, .btn-secondary {
+    padding: 8px 20px;
+    border-radius: 25px; /* Boutons très arrondis comme sur l'image */
     font-weight: 500 !important;
+    transition: all 0.3s ease !important;
 }
 
 .btn-primary {
-    background-color: var(--primary-color);
-    color: white !important;
+    background-color: var(--color-primary);
+    color: var(--color-white) !important;
 }
 
 .btn-primary:hover {
-    background-color: var(--secondary-color);
-    color: white !important;
+    background-color: var(--bg-map);
+    transform: translateY(-2px);
 }
 
-.btn-admin {
-    background-color: #8b0000;
-    color: white !important;
+/* =========================================
+   4. LA CARTE INTERACTIVE (Le Domaine)
+   ========================================= */
+.map-container {
+    max-width: 1000px; /* On limite la largeur pour que ça reste beau sur grand écran */
+    margin: 0 auto;    /* On centre la carte */
+    padding: 0 20px;
 }
 
-/* GARDER TON CODE POUR LA CARTE EN DESSOUS ICI... */
-/* LA CARTE DU DOMAINE */
 #domain-map {
-...
+    width: 100%;
+    height: 450px;
+    background-color: var(--bg-map);
+    border-radius: 15px; /* Bords bien arrondis */
+    position: relative;
+    box-shadow: inset 0 0 30px rgba(0,0,0,0.05); /* Petite ombre à l'intérieur */
+    margin-bottom: 30px;
+}
+
+/* =========================================
+   5. LES PASTILLES (Marqueurs)
+   ========================================= */
+.map-marker {
+    position: absolute;
+    width: 35px;
+    height: 35px;
+    background-color: var(--color-white);
+    border: 3px solid var(--color-primary);
+    border-radius: 50%; /* Fait un rond parfait */
+    
+    /* Flexbox pour centrer le texte/chiffre dans le rond */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+    font-weight: bold;
+    color: var(--color-primary);
+    cursor: pointer;
+    box-shadow: var(--shadow-soft);
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* Animation avec un effet "rebond" */
+}
+
+.map-marker:hover {
+    transform: scale(1.3) translateY(-10px); /* Grossit et monte un peu */
+    background-color: var(--color-primary);
+    color: var(--color-white);
+    box-shadow: var(--shadow-hover);
+    z-index: 10; /* Passe au-dessus des autres si elles sont proches */
+}
+
+/* Positions (à ajuster selon tes envies) */
+.marker-1 { top: 20%; left: 25%; }
+.marker-2 { top: 25%; left: 35%; }
+.marker-3 { top: 60%; left: 20%; }
+.marker-4 { top: 65%; left: 30%; }
+.marker-5 { top: 40%; left: 70%; }
+
+/* =========================================
+   6. LE PANNEAU D'INFORMATION
+   ========================================= */
+#info-panel {
+    background: var(--color-white);
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: var(--shadow-soft);
+    min-height: 120px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center; /* On centre le texte du panneau */
+}
+
+#info-panel h3 {
+    margin-top: 0;
+    font-size: 1.5rem;
+}
+
+#info-link {
+    display: inline-block;
+    margin-top: 15px;
+    padding: 10px 25px;
+    background-color: var(--bg-map);
+    color: var(--color-white);
+    text-decoration: none;
+    border-radius: 25px;
+    font-weight: 500;
+    transition: background-color 0.3s ease;
+    align-self: center; /* Centre le bouton */
+}
+
+#info-link:hover {
+    background-color: var(--color-primary);
+}
