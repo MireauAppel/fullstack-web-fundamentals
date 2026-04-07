@@ -167,10 +167,10 @@ p.subtitle {
    exactement sur les bons bâtiments de ton image) 
 */
 .marker-1 { top: 40%; left: 65%; } /* Batiment 1: Vieille maison */
-.marker-2 { top: 53%; left: 70%; } /* Batiment 2: Autre maison */
-.marker-3 { top: 68.5%; left: 76.5%; } /* Batiment 3: Studio Hobbit*/
+.marker-2 { top: 53%; left: 69%; } /* Batiment 2: Autre maison */
+.marker-3 { top: 68.5%; left: 75%; } /* Batiment 3: Studio Hobbit*/
 .marker-4 { top: 78%; left: 57%; } /* Batiment 4: Studio Gandalf*/
-.marker-5 { top: 68%; left: 64%; } /* Batiment 5: Appartement*/
+.marker-5 { top: 68%; left: 63.5%; } /* Batiment 5: Appartement*/
 
 /* =========================================
    6. LE PANNEAU D'INFORMATION
