@@ -2,7 +2,7 @@
    1. PALETTE DE COULEURS (Inspirée de la maquette)
    ========================================= */
 :root {
-    --bg-page: #F5F7F6;       /* Gris très clair/blanc cassé pour le fond */
+   --bg-page: #E6EAE3; /* Un pastel ternaire doux pour le fond de page */
     --bg-map: #82A284;        /* Vert sauge doux pour le domaine */
     --color-text: #2D3748;    /* Gris anthracite (plus doux que le noir pur) */
     --color-primary: #2C423F; /* Vert sombre élégant pour les boutons/titres */
@@ -100,20 +100,33 @@ p.subtitle {
    ========================================= */
 #domain-map {
     width: 100%;
-    max-width: 900px; /* Ajuste selon la taille de ton image */
-    height: 600px;    /* Ajuste selon la hauteur de ton image */
-    margin: 0 auto 30px auto;
+    max-width: 950px; 
+    height: 600px;
+    margin: 20px auto 40px auto;
     
-    /* On charge TON image en fond */
-    background-image: url('Map\ lupec.png');
-    background-size: contain; /* L'image s'adapte sans être coupée */
+    background-image: url('map_domaine.png');
+    background-size: contain;
     background-position: center;
     background-repeat: no-repeat;
     
-    position: relative; /* Indispensable pour placer les pastilles */
-    border-radius: 10px;
-    box-shadow: var(--shadow-soft);
-    background-color: white; /* Fond blanc si l'image ne prend pas toute la place */
+    position: relative;
+    
+    /* LES MODIFICATIONS SEAMLESS SONT ICI */
+    background-color: transparent; /* On enlève le fond blanc */
+    box-shadow: none; /* On enlève l'ombre de la boîte */
+    
+    /* ASTUCE PRO : Si ton image a un fond blanc, ceci va le rendre transparent 
+       et fusionner ton dessin avec le pastel de la page ! */
+    mix-blend-mode: multiply; 
+}
+/* L'INSTRUCTION SOUS LA CARTE */
+.map-instruction {
+    text-align: center;
+    font-size: 0.95rem;
+    color: #777777; /* Un gris doux pour ne pas agresser l'œil */
+    font-style: italic;
+    margin-top: -20px; /* Remonte le texte légèrement vers l'image */
+    margin-bottom: 40px; /* Laisse de l'espace avant le panneau d'info */
 }
 
 /* =========================================
@@ -158,3 +171,40 @@ p.subtitle {
 .marker-3 { top: 68.5%; left: 76.5%; } /* Batiment 3: Studio Hobbit*/
 .marker-4 { top: 78%; left: 57%; } /* Batiment 4: Studio Gandalf*/
 .marker-5 { top: 68%; left: 64%; } /* Batiment 5: Appartement*/
+
+/* =========================================
+   6. LE PANNEAU D'INFORMATION
+   ========================================= */
+#info-panel {
+    background: var(--color-white);
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: var(--shadow-soft);
+    min-height: 120px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center; /* On centre le texte du panneau */
+}
+
+#info-panel h3 {
+    margin-top: 0;
+    font-size: 1.5rem;
+}
+
+#info-link {
+    display: inline-block;
+    margin-top: 15px;
+    padding: 10px 25px;
+    background-color: var(--bg-map);
+    color: var(--color-white);
+    text-decoration: none;
+    border-radius: 25px;
+    font-weight: 500;
+    transition: background-color 0.3s ease;
+    align-self: center; /* Centre le bouton */
+}
+
+#info-link:hover {
+    background-color: var(--color-primary);
+}

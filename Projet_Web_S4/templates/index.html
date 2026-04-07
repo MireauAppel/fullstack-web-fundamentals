@@ -35,7 +35,6 @@
     </nav>
 
     <h1>Plan interactif du Domaine de Lupec</h1>
-    <p>Cliquez sur un logement sur la carte pour voir ses caractéristiques et son emplacement.</p>
 
     <div id="domain-map">
         {% for acc in accommodations %}
@@ -45,12 +44,14 @@
                  data-desc="{{ acc['description'] }}"
                  data-id="{{ acc['id'] }}"
                  title="{{ acc['name'] }}">
-                
                 {{ loop.index }}
-                
             </div>
         {% endfor %}
     </div>
+
+    <p class="map-instruction">
+        Cliquez sur une pastille numérotée sur le plan pour découvrir les détails du logement.
+    </p>
 
     <div id="info-panel">
         <h3 style="margin-top: 0;">Sélectionnez un logement</h3>
