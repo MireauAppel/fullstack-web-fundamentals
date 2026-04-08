@@ -290,11 +290,15 @@ p.subtitle {
 }
 
 .form-submit {
-    margin-top: 10px;
-    padding: 15px;
-    font-size: 1.1rem;
-    cursor: pointer;
+    display: block !important; /* Force l'affichage */
+    visibility: visible !important;
+    background-color: var(--color-primary); /* Assure une couleur de fond */
+    color: var(--color-white) !important; /* Assure que le texte est blanc */
+    width: 100%;
     border: none;
+    padding: 15px;
+    border-radius: 25px;
+    cursor: pointer;
 }
 
 .login-prompt {
@@ -401,3 +405,93 @@ p.subtitle {
     from { opacity: 0; transform: translateY(-10px); }
     to { opacity: 1; transform: translateY(0); }
 }
+
+/* =========================================
+   9. TABLEAUX DE BORD (Client & Admin)
+   ========================================= */
+.dashboard-container {
+    max-width: 1000px; /* Plus large pour accueillir un tableau */
+    margin: 40px auto;
+    padding: 0 20px;
+}
+
+.dashboard-card {
+    background-color: var(--color-white);
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: var(--shadow-soft);
+}
+
+.dashboard-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    border-bottom: 2px solid var(--bg-page);
+    padding-bottom: 15px;
+}
+
+.dashboard-header h1 {
+    margin: 0;
+    text-align: left; /* On aligne à gauche pour le tableau de bord */
+}
+
+/* Le Tableau de données */
+.data-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+.data-table th, .data-table td {
+    padding: 15px;
+    text-align: left;
+    border-bottom: 1px solid #eee;
+    font-size: 0.95rem;
+}
+
+.data-table th {
+    background-color: var(--bg-page);
+    color: var(--color-primary);
+    font-weight: 600;
+}
+
+.data-table tr:hover {
+    background-color: #fcfcfc;
+}
+
+/* Les Badges de Statut */
+.status-badge {
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    display: inline-block;
+    text-align: center;
+    min-width: 90px;
+}
+
+.status-pending { background-color: #FFF3CD; color: #856404; }    /* Jaune */
+.status-confirmed { background-color: #D4EDDA; color: #155724; }  /* Vert */
+.status-refused { background-color: #F8D7DA; color: #721C24; }    /* Rouge */
+
+/* Boutons d'action pour l'Admin */
+.action-form {
+    display: inline-block;
+    margin-right: 5px;
+}
+
+.btn-small {
+    padding: 6px 12px;
+    font-size: 0.85rem;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    color: white;
+    font-weight: 500;
+    transition: opacity 0.3s ease;
+}
+
+.btn-small:hover { opacity: 0.8; }
+.btn-accept { background-color: var(--bg-map); } /* Vert sauge */
+.btn-reject { background-color: #DC3545; } /* Rouge vif */

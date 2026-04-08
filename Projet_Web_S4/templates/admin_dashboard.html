@@ -2,64 +2,81 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title>Gestion du Domaine - Admin</title>
+    <title>Gestion du Domaine - Lupec</title>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-    <nav style="background-color: #333; color: white; padding: 10px; margin-bottom: 20px;">
-        <a href="/" style="color: white;">Retour au site</a> | 
-        Espace Propriétaire ({{ session.email }}) | 
-        <a href="/logout" style="color: white;">Se déconnecter</a>
+
+    <nav id="main-nav">
+        <div class="nav-links">
+            <a href="/">Accueil</a>
+        </div>
+        <div class="nav-user">
+            <span class="user-email" style="color: #c81e1e; font-weight: bold;">Mode Propriétaire</span>
+            <a href="/logout" class="btn-logout">Se déconnecter</a>
+        </div>
     </nav>
 
-    <h1>Toutes les demandes de réservation</h1>
-
-    {% if bookings %}
-        <table border="1" cellpadding="10" cellspacing="0" style="width: 100%; text-align: left;">
-            <tr style="background-color: #f2f2f2;">
-                <th>Client (Email)</th>
-                <th>Logement</th>
-                <th>Dates</th>
-                <th>Statut Actuel</th>
-                <th>Action</th>
-            </tr>
+    <div class="dashboard-container">
+        <div class="dashboard-card">
             
-            {% for b in bookings %}
-            <tr>
-                <td>{{ b['email'] }}</td>
-                <td><strong>{{ b['accommodation_name'] }}</strong></td>
-                <td>Du {{ b['start_date'] }} au {{ b['end_date'] }}</td>
-                <td>
-                    {% if b['status'] == 'pending' %}
-                        <span style="color: orange;">En attente</span>
-                    {% elif b['status'] == 'confirmed' %}
-                        <span style="color: green;">Acceptée</span>
-                    {% else %}
-                        <span style="color: red;">Refusée</span>
-                    {% endif %}
-                </td>
-                <td>
-                    {% if b['status'] == 'pending' %}
-                        <form method="POST" action="/admin/update_booking" style="display:inline;">
-                            <input type="hidden" name="booking_id" value="{{ b['id'] }}">
-                            <input type="hidden" name="status" value="confirmed">
-                            <button type="submit" style="background-color: green; color: white; cursor: pointer;">Accepter</button>
-                        </form>
-                        
-                        <form method="POST" action="/admin/update_booking" style="display:inline;">
-                            <input type="hidden" name="booking_id" value="{{ b['id'] }}">
-                            <input type="hidden" name="status" value="refused">
-                            <button type="submit" style="background-color: red; color: white; cursor: pointer;">Refuser</button>
-                        </form>
-                    {% else %}
-                        <em>Traitée</em>
-                    {% endif %}
-                </td>
-            </tr>
-            {% endfor %}
-        </table>
-    {% else %}
-        <p>Aucune réservation pour le moment.</p>
-    {% endif %}
+            <div class="dashboard-header">
+                <h1>Toutes les demandes de réservation</h1>
+            </div>
+
+            {% if bookings %}
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Client (Email)</th>
+                            <th>Logement</th>
+                            <th>Dates</th>
+                            <th>Statut</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for b in bookings %}
+                        <tr>
+                            <td>{{ b['email'] }}</td>
+                            <td><strong>{{ b['accommodation_name'] }}</strong></td>
+                            <td>Du {{ b['start_date'] }} <br>au {{ b['end_date'] }}</td>
+                            <td>
+                                {% if b['status'] == 'pending' %}
+                                    <span class="status-badge status-pending">En attente</span>
+                                {% elif b['status'] == 'confirmed' %}
+                                    <span class="status-badge status-confirmed">Confirmée</span>
+                                {% elif b['status'] == 'refused' %}
+                                    <span class="status-badge status-refused">Refusée</span>
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if b['status'] == 'pending' %}
+                                    <form method="POST" action="/admin/update_booking" class="action-form">
+                                        <input type="hidden" name="booking_id" value="{{ b['id'] }}">
+                                        <input type="hidden" name="status" value="confirmed">
+                                        <button type="submit" class="btn-small btn-accept">Accepter</button>
+                                    </form>
+                                    <form method="POST" action="/admin/update_booking" class="action-form">
+                                        <input type="hidden" name="booking_id" value="{{ b['id'] }}">
+                                        <input type="hidden" name="status" value="refused">
+                                        <button type="submit" class="btn-small btn-reject">Refuser</button>
+                                    </form>
+                                {% else %}
+                                    <span style="color: #999; font-size: 0.85rem; font-style: italic;">Traitée</span>
+                                {% endif %}
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            {% else %}
+                <p style="text-align: center; color: #666; margin: 40px 0;">Aucune réservation dans le système.</p>
+            {% endif %}
+
+        </div>
+    </div>
 
 </body>
 </html>

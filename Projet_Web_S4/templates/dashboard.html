@@ -2,38 +2,67 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title>Mon Tableau de Bord</title>
+    <title>Mon Tableau de Bord - Lupec</title>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-    <nav style="background-color: #eee; padding: 10px; margin-bottom: 20px;">
-        <a href="/">Accueil</a> | 
-        Connecté en tant que <strong>{{ session.email }}</strong> | 
-        <a href="/logout">Se déconnecter</a>
+
+    <nav id="main-nav">
+        <div class="nav-links">
+            <a href="/">Accueil</a>
+        </div>
+        <div class="nav-user">
+            <span class="user-email">{{ session.email }}</span>
+            <a href="/logout" class="btn-logout">Se déconnecter</a>
+        </div>
     </nav>
 
-    <h1>Mes Demandes de Réservation</h1>
+    <div class="dashboard-container">
+        <div class="dashboard-card">
+            
+            <div class="dashboard-header">
+                <h1>Mes Réservations</h1>
+                <a href="/" class="btn-primary">Nouvelle réservation</a>
+            </div>
 
-    {% if bookings %}
-        <ul>
-            {% for b in bookings %}
-                <li>
-                    <strong>{{ b['accommodation_name'] }}</strong><br>
-                    Du {{ b['start_date'] }} au {{ b['end_date'] }}<br>
-                    Statut : 
-                    {% if b['status'] == 'pending' %}
-                        <span style="color: orange;">En attente de confirmation</span>
-                    {% elif b['status'] == 'confirmed' %}
-                        <span style="color: green;">Acceptée</span>
-                    {% else %}
-                        <span style="color: red;">Refusée</span>
-                    {% endif %}
-                </li>
-                <br>
-            {% endfor %}
-        </ul>
-    {% else %}
-        <p>Vous n'avez fait aucune demande pour le moment.</p>
-    {% endif %}
+            {% if bookings %}
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Logement</th>
+                            <th>Date d'arrivée</th>
+                            <th>Date de départ</th>
+                            <th>Statut</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for b in bookings %}
+                        <tr>
+                            <td><strong>{{ b['accommodation_name'] }}</strong></td>
+                            <td>{{ b['start_date'] }}</td>
+                            <td>{{ b['end_date'] }}</td>
+                            <td>
+                                {% if b['status'] == 'pending' %}
+                                    <span class="status-badge status-pending">En attente</span>
+                                {% elif b['status'] == 'confirmed' %}
+                                    <span class="status-badge status-confirmed">Confirmée</span>
+                                {% elif b['status'] == 'refused' %}
+                                    <span class="status-badge status-refused">Refusée</span>
+                                {% else %}
+                                    <span class="status-badge">{{ b['status'] }}</span>
+                                {% endif %}
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            {% else %}
+                <p style="text-align: center; color: #666; margin: 40px 0;">Vous n'avez aucune réservation pour le moment.</p>
+            {% endif %}
+
+        </div>
+    </div>
 
 </body>
 </html>
