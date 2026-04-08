@@ -43,6 +43,7 @@
                  data-price="{{ acc['price'] }}"
                  data-desc="{{ acc['description'] }}"
                  data-id="{{ acc['id'] }}"
+                 data-images="andere_huis.jpg,vue2.jpg,vue3.jpg"
                  title="{{ acc['name'] }}">
                 {{ loop.index }}
                 <img src="{{ url_for('static', filename=acc['image_url']) }}" alt="{{ acc['name'] }}" class="popup-image">
@@ -55,10 +56,13 @@
     </p>
 
     <div id="info-panel">
-        <h3 style="margin-top: 0;">Sélectionnez un logement</h3>
-        <p id="info-desc">Survolez la carte et cliquez sur une maison pour découvrir les détails de l'hébergement.</p>
+        <h3>Sélectionnez un logement</h3>
+        <p id="info-desc">Cliquez sur un numéro de la carte pour afficher ses informations ici.</p>
         <p id="info-price"></p>
-        <a id="info-link" href="#" style="display: none;">Voir les détails et réserver</a>
+        
+        <div id="info-gallery" class="mini-gallery"></div>
+        
+        <a href="#" id="info-link" style="display: none;">Voir les disponibilités</a>
     </div>
 
 </body>
