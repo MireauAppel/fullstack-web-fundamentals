@@ -208,3 +208,165 @@ p.subtitle {
 #info-link:hover {
     background-color: var(--color-primary);
 }
+/* =========================================
+   6. PAGE LOGEMENT (Détails et Formulaire)
+   ========================================= */
+.page-container {
+    max-width: 700px; /* Une largeur agréable pour lire */
+    margin: 40px auto;
+    padding: 0 20px;
+}
+
+.accommodation-card {
+    background-color: var(--color-white);
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: var(--shadow-soft);
+}
+
+.accommodation-card h1 {
+    margin-top: 0;
+    text-align: center;
+}
+
+.acc-desc {
+    font-size: 1.1rem;
+    text-align: center;
+    color: var(--color-text);
+    margin-bottom: 30px;
+}
+
+.acc-info {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    background-color: var(--bg-page);
+    padding: 15px;
+    border-radius: 8px;
+    color: var(--color-primary);
+}
+
+.separator {
+    border: 0;
+    height: 1px;
+    background: #E6EAE3;
+    margin: 30px 0;
+}
+
+/* Le Formulaire Modernisé */
+.booking-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    max-width: 400px;
+    margin: 0 auto; /* Centre le formulaire */
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.form-group label {
+    font-weight: 500;
+    color: var(--color-primary);
+}
+
+/* De beaux champs de date */
+.form-group input[type="date"] {
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-family: var(--font-text);
+    font-size: 1rem;
+    color: var(--color-text);
+    outline: none;
+    transition: border-color 0.3s ease;
+}
+
+.form-group input[type="date"]:focus {
+    border-color: var(--color-primary);
+}
+
+.form-submit {
+    margin-top: 10px;
+    padding: 15px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    border: none;
+}
+
+.login-prompt {
+    text-align: center;
+    background-color: var(--bg-page);
+    padding: 30px;
+    border-radius: 8px;
+}
+
+/* =========================================
+   7. PAGES D'AUTHENTIFICATION (Login / Register)
+   ========================================= */
+.auth-container {
+    max-width: 450px; /* Plus étroit qu'une page normale pour faire un beau bloc central */
+    margin: 60px auto;
+    padding: 0 20px;
+}
+
+.auth-card {
+    background-color: var(--color-white);
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: var(--shadow-soft);
+    text-align: center;
+}
+
+.auth-card h1 {
+    margin-top: 0;
+    margin-bottom: 30px;
+}
+
+.auth-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    text-align: left; /* On remet le texte à gauche pour les labels */
+}
+
+/* On généralise le style des inputs pour l'email et le mot de passe */
+.form-group input[type="email"],
+.form-group input[type="password"],
+.form-group input[type="text"] {
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-family: var(--font-text);
+    font-size: 1rem;
+    color: var(--color-text);
+    outline: none;
+    transition: border-color 0.3s ease;
+    width: 100%; /* Prend toute la largeur disponible */
+    box-sizing: border-box;
+}
+
+.form-group input[type="email"]:focus,
+.form-group input[type="password"]:focus {
+    border-color: var(--color-primary);
+}
+
+.auth-links {
+    margin-top: 25px;
+    font-size: 0.95rem;
+    color: #666;
+}
+
+.auth-links a {
+    color: var(--color-primary);
+    font-weight: 500;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.auth-links a:hover {
+    color: var(--bg-map-medium);
+}

@@ -3,34 +3,70 @@
 <head>
     <meta charset="UTF-8">
     <title>{{ acc['name'] }} - Lupec</title>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     <script src="{{ url_for('static', filename='booking.js') }}" defer></script>
 </head>
 <body>
-    <h1>{{ acc['name'] }}</h1>
-    <p>{{ acc['description'] }}</p>
-    <p><strong>Prix :</strong> {{ acc['price'] }}€/nuit | <strong>Capacité :</strong> {{ acc['capacity'] }} personnes</p>
 
-    <div style="background-color: #f9f9f9; padding: 15px; margin-top: 20px; border: 1px solid #ccc;">
-        {% if session.user_id %}
-            <h3>Faire une demande de réservation</h3>
-            <form method="POST" action="/book">
-                <input type="hidden" name="accommodation_id" value="{{ acc['id'] }}">
-                
-                <label>Date d'arrivée :</label>
-                <input type="date" id="start_date" name="start_date" required>
-                
-                <label>Date de départ :</label>
-                <input type="date" id="end_date" name="end_date" required>
-                
-                <button type="submit">Confirmer la demande</button>
-            </form>
-        {% else %}
-            <p><a href="/login">Connectez-vous</a> pour pouvoir réserver ce logement.</p>
-        {% endif %}
+    <nav id="main-nav">
+        <div class="nav-links">
+            <a href="/">Accueil</a>
+        </div>
+        <div class="nav-user">
+            {% if session.user_id %}
+                <span class="user-email">Bienvenue, {{ session.email }}</span>
+                {% if session.is_admin == 1 %}
+                    <a href="/admin" class="btn-admin">Gestion du Domaine</a>
+                {% else %}
+                    <a href="/dashboard" class="btn-secondary">Mon Tableau de bord</a>
+                {% endif %}
+                <a href="/logout" class="btn-logout">Se déconnecter</a>
+            {% else %}
+                <a href="/login" class="btn-secondary">Se connecter</a>
+                <a href="/register" class="btn-primary">S'inscrire</a>
+            {% endif %}
+        </div>
+    </nav>
+
+    <div class="page-container">
+        <div class="accommodation-card">
+            <h1>{{ acc['name'] }}</h1>
+            <p class="acc-desc">{{ acc['description'] }}</p>
+
+            <div class="acc-info">
+                <span><strong>Tarif :</strong> {{ acc['price'] }}€ / nuit</span>
+                <span><strong>Capacité :</strong> {{ acc['capacity'] }} personnes</span>
+            </div>
+
+            <hr class="separator">
+
+            {% if session.user_id %}
+                <h3 style="text-align: center;">Réserver ce logement</h3>
+                <form method="POST" action="/book" class="booking-form">
+                    <input type="hidden" name="accommodation_id" value="{{ acc['id'] }}">
+                    
+                    <div class="form-group">
+                        <label for="start_date">Date d'arrivée :</label>
+                        <input type="date" id="start_date" name="start_date" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="end_date">Date de départ :</label>
+                        <input type="date" id="end_date" name="end_date" required>
+                    </div>
+                    
+                    <button type="submit" class="btn-primary form-submit">Confirmer la demande</button>
+                </form>
+            {% else %}
+                <div class="login-prompt">
+                    <p>Vous devez avoir un compte pour effectuer une réservation.</p>
+                    <br>
+                    <a href="/login" class="btn-primary">Se connecter</a>
+                </div>
+            {% endif %}
+        </div>
     </div>
 
-    <br>
-    <a href="/">Retour à l'accueil</a>
 </body>
 </html>
