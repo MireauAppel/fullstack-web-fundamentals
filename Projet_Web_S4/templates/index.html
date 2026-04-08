@@ -45,6 +45,7 @@
                  data-id="{{ acc['id'] }}"
                  title="{{ acc['name'] }}">
                 {{ loop.index }}
+                <img src="{{ url_for('static', filename=acc['image_url']) }}" alt="{{ acc['name'] }}" class="popup-image">
             </div>
         {% endfor %}
     </div>
