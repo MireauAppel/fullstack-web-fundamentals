@@ -13,6 +13,13 @@ def index():
     return render_template('index.html', accommodations=accommodations)
 
 # ==========================================
+# ROUTE NOTRE HISTOIRE
+# ==========================================
+@app.route('/histoire')
+def history():
+    return render_template('history.html')
+
+# ==========================================
 # ROUTES D'AUTHENTIFICATION
 # ==========================================
 

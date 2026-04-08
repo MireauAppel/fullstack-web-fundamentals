@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Notre Histoire - Lupec</title>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+    <nav id="main-nav">
+        <div class="nav-links">
+            <a href="/">Accueil</a>
+            <a href="/histoire" style="color: var(--bg-map);">Notre Histoire</a>
+        </div>
+        <div class="nav-user">
+            {% if session.user_id %}
+                <a href="/dashboard" class="btn-secondary">Mon Compte</a>
+            {% else %}
+                <a href="/login" class="btn-primary">Se connecter</a>
+            {% endif %}
+        </div>
+    </nav>
+
+    <div class="page-container">
+        <div class="accommodation-card history-card">
+            <h1>L'Histoire du Domaine de Lupec</h1>
+            
+            <p class="acc-desc">Découvrez comment notre domaine familial est devenu un havre de paix.</p>
+
+            <div class="history-content">
+                <div class="text-block">
+                    <h3>Les origines</h3>
+                    <p>Construit au début du siècle dernier, le Domaine de Lupec était à l'origine une vaste exploitation agricole. Les murs de pierre de la Vieille Maison résonnent encore des souvenirs des moissons d'antan.</p>
+                </div>
+                
+                <div class="carousel-container">
+                    <img src="{{ url_for('static', filename='histoire1.jpg') }}" class="carousel-slide active">
+                    <img src="{{ url_for('static', filename='histoire2.jpg') }}" class="carousel-slide">
+                    <img src="{{ url_for('static', filename='histoire3.jpg') }}" class="carousel-slide">
+                    
+                    <button class="carousel-btn prev" onclick="changeSlide(-1)">&#10094;</button>
+                    <button class="carousel-btn next" onclick="changeSlide(1)">&#10095;</button>
+                </div>
+
+                <div class="text-block">
+                    <h3>Une rénovation passionnée</h3>
+                    <p>Aujourd'hui, après des années de restauration minutieuse pour préserver son charme authentique tout en apportant le confort moderne, nous sommes fiers de vous ouvrir nos portes.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.carousel-slide');
+
+        function showSlide(index) {
+            // Cache toutes les images
+            slides.forEach(slide => slide.classList.remove('active'));
+            
+            // Gère les limites (revenir au début ou à la fin)
+            if (index >= slides.length) currentSlide = 0;
+            if (index < 0) currentSlide = slides.length - 1;
+            
+            // Affiche la bonne image
+            slides[currentSlide].classList.add('active');
+        }
+
+        function changeSlide(step) {
+            currentSlide += step;
+            showSlide(currentSlide);
+        }
+
+        // Fait défiler automatiquement toutes les 4 secondes
+        setInterval(() => {
+            changeSlide(1);
+        }, 4000);
+    </script>
+</body>
+</html>
