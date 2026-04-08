@@ -3,18 +3,43 @@
 <head>
     <meta charset="UTF-8">
     <title>Inscription - Lupec</title>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-    <h1>Créer un compte</h1>
-    <form method="POST" action="/register">
-        <label>Email :</label>
-        <input type="email" name="email" required>
-        <br><br>
-        <label>Mot de passe :</label>
-        <input type="password" name="password" required>
-        <br><br>
-        <button type="submit">S'inscrire</button>
-    </form>
-    <p><a href="/">Retour à l'accueil</a></p>
+
+    <nav id="main-nav">
+        <div class="nav-links">
+            <a href="/">Accueil</a>
+        </div>
+        <div class="nav-user">
+            <a href="/login" class="btn-primary">Se connecter</a>
+        </div>
+    </nav>
+
+    <div class="auth-container">
+        <div class="auth-card">
+            <h1>Créer un compte</h1>
+            
+            <form method="POST" action="/register" class="auth-form">
+                <div class="form-group">
+                    <label for="email">Adresse Email :</label>
+                    <input type="email" id="email" name="email" placeholder="votre@email.com" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="password">Mot de passe :</label>
+                    <input type="password" id="password" name="password" placeholder="••••••••" required>
+                </div>
+                
+                <button type="submit" class="btn-primary form-submit" style="width: 100%;">Connexion</button>
+            </form>
+
+            <div class="auth-links">
+                <p>Pas encore de compte ? <br> <a href="/login">Déjà inscrit ?</a></p>
+            </div>
+        </div>
+    </div>
+
 </body>
 </html>
