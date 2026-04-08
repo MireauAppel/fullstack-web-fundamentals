@@ -3,6 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <title>{{ acc['name'] }} - Lupec</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script src="{{ url_for('static', filename='booking.js') }}" defer></script>
 </head>
 <body>
     <h1>{{ acc['name'] }}</h1>
@@ -30,31 +32,5 @@
 
     <br>
     <a href="/">Retour à l'accueil</a>
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const startInput = document.getElementById('start_date');
-            const endInput = document.getElementById('end_date');
-
-            if (startInput && endInput) {
-                // 1. Bloquer les dates dans le passé
-                // On récupère la date d'aujourd'hui au format AAAA-MM-JJ
-                const today = new Date().toISOString().split('T')[0];
-                startInput.setAttribute('min', today);
-                endInput.setAttribute('min', today);
-
-                // 2. Écouter quand l'utilisateur change la date d'arrivée
-                startInput.addEventListener('change', function() {
-                    // La date de départ minimum devient la date d'arrivée !
-                    endInput.setAttribute('min', this.value);
-                    
-                    // Si le client avait déjà choisi une date de départ qui est 
-                    // maintenant avant la nouvelle date d'arrivée, on vide le champ
-                    if (endInput.value < this.value) {
-                        endInput.value = "";
-                    }
-                });
-            }
-        });
-    </script>
 </body>
 </html>
