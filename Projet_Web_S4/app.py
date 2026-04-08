@@ -27,7 +27,7 @@ def register():
             # Succès : on l'envoie vers la page de connexion
             return redirect(url_for('login'))
         else:
-            return "Erreur : Cet email est déjà utilisé."
+            return render_template('register.html', error="Cet email est déjà utilisé.")
             
     # Si c'est un simple GET, on affiche juste la page
     return render_template('register.html')
@@ -49,7 +49,7 @@ def login():
             session['email'] = user['email']
             return redirect(url_for('index'))
         else:
-            return "Erreur : Email ou mot de passe incorrect."
+            return render_template('login.html', error="Email ou mot de passe incorrect.")
             
     return render_template('login.html')
 

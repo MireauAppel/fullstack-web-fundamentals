@@ -20,7 +20,13 @@
     <div class="auth-container">
         <div class="auth-card">
             <h1>Se connecter</h1>
+            {% if error %}
+                <div class="alert alert-error">
+                    {{ error }}
+                </div>
+            {% endif %}
             
+            <form method="POST" ...>
             <form method="POST" action="/login" class="auth-form">
                 <div class="form-group">
                     <label for="email">Adresse Email :</label>

@@ -370,3 +370,34 @@ p.subtitle {
 .auth-links a:hover {
     color: var(--bg-map-medium);
 }
+
+/* =========================================
+   8. MESSAGES D'ALERTE (Erreurs / Succès)
+   ========================================= */
+.alert {
+    padding: 12px 20px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    text-align: center;
+    font-weight: 500;
+    animation: fadeIn 0.3s ease-in-out; /* Petite animation d'apparition */
+}
+
+.alert-error {
+    background-color: #FDE8E8; /* Rouge très pastel */
+    color: #C81E1E;            /* Texte rouge foncé lisible */
+    border: 1px solid #FBC4C4;
+}
+
+.alert-success {
+    background-color: #E6F4EA; /* Vert très pastel */
+    color: #1E8E3E;            /* Texte vert foncé */
+    border: 1px solid #CEEAD6;
+}
+
+/* Animation douce quand le message apparaît */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
