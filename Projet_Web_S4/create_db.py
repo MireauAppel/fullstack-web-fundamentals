@@ -29,6 +29,7 @@ def init_db(db_name=DBFILENAME):
                 name TEXT NOT NULL, 
                 description TEXT, 
                 image_url TEXT, 
+                gallery_image TEXT,
                 capacity INTEGER, 
                 price INTEGER
             )
@@ -59,38 +60,43 @@ def init_db(db_name=DBFILENAME):
         # Création de quelques logements pour le domaine
         accommodations = [
             {
-                'name': 'La Veille maison', 
+                'name': 'Jasse', 
                 'description': 'Maison familiale spacieuse idéale pour les groupes de moyenne taille. Accès direct au jardin.', 
-                'image_url': 'grand_gite.jpg', 
-                'capacity': 10, 
+                'image_url': 'jasse.jpg', 
+                'gallery_image': 'jasse.jpg, jasse1.jpg, jasse2.jpg, jasse3.jpg, jasse4.jpg, jasse5.jpg, jasse6.jpg, jasse7.jpg, jasse8.jpg',
+                'capacity': 8, 
                 'price': 150
             },
             {
-                'name': "L'annexe", 
+                'name': "Avalon", 
                 'description': 'Maison familiale spacieuse idéale pour les petits groupes ou familles. Accès direct au jardin.', 
-                'image_url': 'grand_gite.jpg', 
-                'capacity': 10, 
-                'price': 150
+                'image_url': 'avalon.jpg', 
+                'gallery_image': 'avalon.jpg, avalon1.jpg, avalon2.jpg, avalon3.jpg, avalon4.jpg, avalon5.jpg, avalon6.jpg',
+                'capacity': 6, 
+                'price': 125
             },
             {
                 'name': 'Studio Gandalf', 
                 'description': 'Petit studio cosy et rénové, parfait pour un couple en quête de tranquillité.', 
-                'image_url': 'studio.jpg', 
+                'image_url': 'gandalf.jpg', 
+                'gallery_image': 'gandalf.jpg, gandalf1.jpg, gandalf2.jpg',
                 'capacity': 2, 
-                'price': 60
+                'price': 80
             },
             {
-                'name': 'Studio Hobbit', 
+                'name': 'Studio Frodo', 
                 'description': "Petit studio cosy et rénové, parfait pour un couple en quête de tranquillité. Petite et charmante porte d'entrée lui donnant son nom caractéristique.", 
-                'image_url': 'studio.jpg', 
+                'image_url': 'frodo.jpg', 
+                'gallery_image': 'frodo.jpg, frodo1.jpg, frodo2.jpg',
                 'capacity': 2, 
                 'price': 60
             },
             {
-                'name': 'La Dépendance Ouest', 
+                'name': 'Apartus', 
                 'description': 'Logement de taille moyenne avec poutres apparentes et terrasse privée.', 
-                'image_url': 'dependance.jpg', 
-                'capacity': 5, 
+                'image_url': 'app.jpg', 
+                'gallery_image': 'app.jpg, app1.jpg, app2.jpg, app3.jpg, app4.jpg, app5.jpg, app6.jpg, app7.jpg',
+                'capacity': 4, 
                 'price': 90
             }
         ]
