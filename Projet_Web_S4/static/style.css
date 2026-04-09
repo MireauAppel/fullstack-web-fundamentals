@@ -696,10 +696,18 @@ p.subtitle {
     flex: 1.2; /* Prend un peu plus de place que la droite */
 }
 
-.img-large {
-    width: 100%;
-    height: auto;
+.img-large-left {
+    width: 500px;
+    height: 500px;
     object-fit: cover;
+    margin-right: auto;
+    display: block;
+}
+.img-large-right {
+    width: 500px;
+    height: 500px;
+    object-fit: cover;
+    margin-left: auto;
     display: block;
 }
 
@@ -746,4 +754,12 @@ p.subtitle {
     color: #555;
     line-height: 1.6;
     margin: 0;
+}
+.line {
+    border: 0;
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--color-primary), transparent);
+    opacity: 0.5; /* Très subtil, presque en filigrane */
+    margin: 80px auto;
+    width: 100%; /* Ne touche pas les bords de l'écran pour plus de finesse */
 }
