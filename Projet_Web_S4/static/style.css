@@ -656,14 +656,14 @@ p.subtitle {
    12. PAGE HISTOIRE (Design Éditorial)
    ========================================= */
 
-.editorial-container {
+.about-container {
     max-width: 1200px; /* Plus large pour laisser respirer le design */
     margin: 80px auto;
     padding: 0 40px;
 }
 
 /* Le grand texte d'introduction */
-.editorial-hero-text {
+.about-main-text {
     font-family: var(--font-title);
     font-size: 2.8rem;
     color: #333333;
@@ -674,7 +674,7 @@ p.subtitle {
 }
 
 /* Le titre "Notre Histoire" très grand format */
-.editorial-title {
+.about-title {
     font-size: 5rem;
     font-family: var(--font-title);
     color: #2D2D2D;
@@ -685,14 +685,14 @@ p.subtitle {
 }
 
 /* La structure de la grille */
-.editorial-layout {
+.about-layout {
     display: flex;
     gap: 60px;
     align-items: flex-start;
 }
 
 /* Partie gauche (Grande image) */
-.editorial-left {
+.about-left {
     flex: 1.2; /* Prend un peu plus de place que la droite */
 }
 
@@ -704,7 +704,7 @@ p.subtitle {
 }
 
 /* Partie droite (Petite image et Textes) */
-.editorial-right {
+.about-right {
     flex: 1;
     display: flex;
     flex-direction: column;
@@ -721,18 +721,18 @@ p.subtitle {
 }
 
 /* Les colonnes de texte "Services" et "Clients" */
-.editorial-text-cols {
+.about-text-cols {
     display: flex;
     gap: 30px;
     text-align: left;
     width: 100%;
 }
 
-.ed-col {
+.ab-col {
     flex: 1;
 }
 
-.ed-col h4 {
+.ab-col h4 {
     font-family: var(--font-text);
     font-weight: 600;
     color: #000;
@@ -741,7 +741,7 @@ p.subtitle {
     font-size: 1.1rem;
 }
 
-.ed-col p {
+.ab-col p {
     font-size: 0.95rem;
     color: #555;
     line-height: 1.6;
