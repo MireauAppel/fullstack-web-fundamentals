@@ -610,8 +610,8 @@ p.subtitle {
 
 /* L'image à l'intérieur du popup */
 .hover-popup img {
-    width: 140px;
-    height: 90px;
+    width: 300px;
+    height: 200px;
     object-fit: cover;
     border-radius: 8px;
     border: 3px solid var(--color-white); /* Joli cadre blanc */
