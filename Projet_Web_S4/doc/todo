@@ -1,7 +1,7 @@
 # TODO - Tomorrow
 
 - [ ] Make images bigger on viewing accs
-- [ ] Rename all images
+- [+] Rename all images
 - [ ] Make image hover work
 - [ ] Add button for notre histoire on index page
 - [ ] Change layout of notre histoire to fill whole page width with alternating checker pattern (image left/description right, then description left/image right)
