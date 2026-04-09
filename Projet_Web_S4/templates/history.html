@@ -22,60 +22,65 @@
         </div>
     </nav>
 
-    <div class="page-container">
-        <div class="accommodation-card history-card">
-            <h1>L'Histoire du Domaine de Lupec</h1>
+    <div class="editorial-container">
+        
+        <h2 class="editorial-hero-text">
+            Notre parcours a été tout sauf ordinaire. À chaque étape, nous nous sommes efforcés de rester fidèles à nos valeurs et de créer un espace pour un travail réfléchi et durable.
+        </h2>
+
+        <h1 class="editorial-title">Notre Histoire</h1>
+
+        <div class="editorial-layout">
             
-            <p class="acc-desc">Découvrez comment notre domaine familial est devenu un havre de paix.</p>
-
-            <div class="history-content">
-                <div class="text-block">
-                    <h3>Les origines</h3>
-                    <p>Construit au début du siècle dernier, le Domaine de Lupec était à l'origine une vaste exploitation agricole. Les murs de pierre de la Vieille Maison résonnent encore des souvenirs des moissons d'antan.</p>
-                </div>
+            <div class="editorial-left">
+                <img src="{{ url_for('static', filename='histoire1.jpg') }}" alt="Histoire Principale" class="img-large">
+            </div>
+            
+            <div class="editorial-right">
+                <img src="{{ url_for('static', filename='histoire2.jpg') }}" alt="Détail" class="img-small">
                 
-                <div class="carousel-container">
-                    <img src="{{ url_for('static', filename='histoire1.jpg') }}" class="carousel-slide active">
-                    <img src="{{ url_for('static', filename='histoire2.jpg') }}" class="carousel-slide">
-                    <img src="{{ url_for('static', filename='histoire3.jpg') }}" class="carousel-slide">
-                    
-                    <button class="carousel-btn prev" onclick="changeSlide(-1)">&#10094;</button>
-                    <button class="carousel-btn next" onclick="changeSlide(1)">&#10095;</button>
-                </div>
-
-                <div class="text-block">
-                    <h3>Une rénovation passionnée</h3>
-                    <p>Aujourd'hui, après des années de restauration minutieuse pour préserver son charme authentique tout en apportant le confort moderne, nous sommes fiers de vous ouvrir nos portes.</p>
+                <div class="editorial-text-cols">
+                    <div class="ed-col">
+                        <h4>Services</h4>
+                        <p>Explorez notre gamme de services conçus pour vous aider à avancer avec confiance, où que vous alliez ensuite.</p>
+                    </div>
+                    <div class="ed-col">
+                        <h4>Clients</h4>
+                        <p>Nous sommes honorés de voir notre travail reconnu sur une variété de plateformes, de publications et d'articles de presse.</p>
+                    </div>
                 </div>
             </div>
+
+        </div> <hr class="separator" style="margin: 60px 0;">
+
+        <div class="carousel-container" style="height: 450px; width: 90%; max-width: 700px; margin: 20px auto; border-radius: 15px;">
+            
+            <img src="{{ url_for('static', filename='histoire1.jpg') }}" class="carousel-slide active">
+            <img src="{{ url_for('static', filename='histoire2.jpg') }}" class="carousel-slide">
+            <img src="{{ url_for('static', filename='histoire3.jpg') }}" class="carousel-slide">
+            
+           <button class="carousel-btn prev" onclick="changeSlide(-1)">&#10094;</button>
+            <button class="carousel-btn next" onclick="changeSlide(1)">&#10095;</button>
         </div>
+
+
+
     </div>
 
-    <script>
-        let currentSlide = 0;
+   <script>
+        let currentSlideIndex = 0;
         const slides = document.querySelectorAll('.carousel-slide');
 
-        function showSlide(index) {
-            // Cache toutes les images
-            slides.forEach(slide => slide.classList.remove('active'));
-            
-            // Gère les limites (revenir au début ou à la fin)
-            if (index >= slides.length) currentSlide = 0;
-            if (index < 0) currentSlide = slides.length - 1;
-            
-            // Affiche la bonne image
-            slides[currentSlide].classList.add('active');
-        }
-
         function changeSlide(step) {
-            currentSlide += step;
-            showSlide(currentSlide);
+            // Retire la classe 'active' de l'image actuelle
+            slides[currentSlideIndex].classList.remove('active');
+            
+            // Calcul mathématique pour boucler (passer de la dernière à la première)
+            currentSlideIndex = (currentSlideIndex + step + slides.length) % slides.length;
+            
+            // Ajoute la classe 'active' à la nouvelle image
+            slides[currentSlideIndex].classList.add('active');
         }
-
-        // Fait défiler automatiquement toutes les 4 secondes
-        setInterval(() => {
-            changeSlide(1);
-        }, 4000);
     </script>
 </body>
 </html>
