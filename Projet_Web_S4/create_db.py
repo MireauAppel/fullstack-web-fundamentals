@@ -101,7 +101,7 @@ def init_db(db_name=DBFILENAME):
             }
         ]
         
-        insert_acc = 'INSERT INTO accommodation (name, description, image_url, capacity, price) VALUES (:name, :description, :image_url, :capacity, :price)'
+        insert_acc = 'INSERT INTO accommodation (name, description, image_url, gallery_image, capacity, price) VALUES (:name, :description, :image_url, :gallery_image, :capacity, :price)'
         
         for acc in accommodations:
             cur.execute(insert_acc, acc)
