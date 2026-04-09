@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Réservation de Groupe - Lupec</title>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+    <nav id="main-nav">
+        <div class="nav-links">
+            <a href="/">Accueil</a>
+            <a href="/histoire">Notre Histoire</a>
+        </div>
+        <div class="nav-user">
+            <span class="user-email">Bienvenue, {{ session.email }}</span>
+            <a href="/dashboard" class="btn-secondary">Mon Tableau de bord</a>
+            <a href="/logout" class="btn-logout">Se déconnecter</a>
+        </div>
+    </nav>
+
+    <div class="page-container">
+        <div class="accommodation-card">
+            <h1>Réservation de Groupe</h1>
+            <p class="acc-desc">Sélectionnez vos dates et cochez les logements que vous souhaitez louer ensemble pour votre événement.</p>
+
+            <form method="POST" action="/group_booking" class="booking-form" style="max-width: 500px;">
+                
+                <div style="display: flex; gap: 20px;">
+                    <div class="form-group" style="flex: 1;">
+                        <label for="start_date">Date d'arrivée :</label>
+                        <input type="date" id="start_date" name="start_date" required>
+                    </div>
+                    <div class="form-group" style="flex: 1;">
+                        <label for="end_date">Date de départ :</label>
+                        <input type="date" id="end_date" name="end_date" required>
+                    </div>
+                </div>
+
+                <hr class="separator">
+                <h3 style="text-align: center; margin-top: 0;">Sélectionnez les logements</h3>
+
+                <div style="display: flex; flex-direction: column; gap: 15px; margin-bottom: 20px;">
+                    {% for acc in accommodations %}
+                    <label style="display: flex; align-items: center; background: var(--bg-page); padding: 15px; border-radius: 8px; cursor: pointer; border: 1px solid transparent; transition: all 0.3s ease;" onmouseover="this.style.borderColor='var(--color-primary)'" onmouseout="this.style.borderColor='transparent'">
+                        
+                        <input type="checkbox" name="accommodation_ids" value="{{ acc['id'] }}" style="width: 22px; height: 22px; margin-right: 20px; cursor: pointer;">
+                        
+                        <div>
+                            <strong style="color: var(--color-primary); font-size: 1.1rem;">{{ acc['name'] }}</strong><br>
+                            <span style="font-size: 0.9rem; color: #666;">Capacité : {{ acc['capacity'] }} pers. | Tarif : {{ acc['price'] }}€ / nuit</span>
+                        </div>
+
+                    </label>
+                    {% endfor %}
+                </div>
+                
+                <button type="submit" class="btn-primary form-submit">Confirmer la demande groupée</button>
+            </form>
+        </div>
+    </div>
+    <script>
+    // 1. On récupère les données
+    const allConfirmedBookings = {{ bookings|tojson|safe }};
+    
+    document.addEventListener('DOMContentLoaded', function() {
+        const startDateInput = document.getElementById('start_date');
+        const endDateInput = document.getElementById('end_date');
+        const checkboxes = document.querySelectorAll('input[name="accommodation_ids"]');
+        
+        // Création d'une belle boîte pour afficher les indisponibilités sous les calendriers
+        const dateContainer = startDateInput.parentElement.parentElement;
+        const warningDiv = document.createElement('div');
+        warningDiv.style.marginTop = '15px';
+        warningDiv.style.padding = '12px';
+        warningDiv.style.backgroundColor = '#FDE8E8'; // Rouge très clair
+        warningDiv.style.color = '#C81E1E';
+        warningDiv.style.borderRadius = '8px';
+        warningDiv.style.fontSize = '0.9rem';
+        warningDiv.style.display = 'none'; // Caché par défaut
+        dateContainer.parentElement.insertBefore(warningDiv, dateContainer.nextSibling);
+
+        // Bloquer le passé
+        const today = new Date().toISOString().split('T')[0];
+        startDateInput.setAttribute('min', today);
+        endDateInput.setAttribute('min', today);
+
+        // Fonction utile pour vérifier un chevauchement
+        function isBooked(accId, start, end) {
+            return allConfirmedBookings.some(b => b.accommodation_id === accId && start < b.end_date && end > b.start_date);
+        }
+
+        // LA FONCTION PRINCIPALE (Appelée à chaque clic ou changement de date)
+        function updateUI() {
+            const start = startDateInput.value;
+            const end = endDateInput.value;
+            const selectedBoxes = Array.from(checkboxes).filter(cb => cb.checked);
+
+            // --- 1. SÉCURITÉ DES DATES DE DÉPART ---
+            if (start) {
+                let nextDay = new Date(start);
+                nextDay.setDate(nextDay.getDate() + 1);
+                const minEnd = nextDay.toISOString().split('T')[0];
+                endDateInput.setAttribute('min', minEnd);
+                if (end && end <= start) endDateInput.value = '';
+            }
+
+            // --- 2. GESTION DES CHECKBOXES (Correction de l'Erreur 1) ---
+            if (!start || !end) {
+                // Si les dates sont effacées, on libère TOUS les logements
+                checkboxes.forEach(box => {
+                    box.disabled = false;
+                    box.parentElement.style.opacity = "1";
+                    box.parentElement.style.pointerEvents = "auto";
+                    const msg = box.parentElement.querySelector('.status-msg');
+                    if (msg) msg.remove();
+                });
+            } else {
+                // Si les dates sont remplies, on grise ceux qui sont pris
+                checkboxes.forEach(box => {
+                    const accId = parseInt(box.value);
+                    const isBusy = isBooked(accId, start, end);
+
+                    if (isBusy) {
+                        box.disabled = true;
+                        box.checked = false; // Le décoche de force
+                        box.parentElement.style.opacity = "0.4";
+                        box.parentElement.style.pointerEvents = "none";
+                        
+                        if (!box.parentElement.querySelector('.status-msg')) {
+                            const msg = document.createElement('small');
+                            msg.className = 'status-msg';
+                            msg.style.color = '#c81e1e';
+                            msg.style.fontWeight = 'bold';
+                            msg.textContent = " (Déjà réservé)";
+                            box.parentElement.querySelector('div').appendChild(msg);
+                        }
+                    } else {
+                        // S'il redevient libre après un changement de date, on le dé-grise
+                        box.disabled = false;
+                        box.parentElement.style.opacity = "1";
+                        box.parentElement.style.pointerEvents = "auto";
+                        const msg = box.parentElement.querySelector('.status-msg');
+                        if (msg) msg.remove();
+                    }
+                });
+            }
+
+            // --- 3. LOGIQUE INVERSÉE (Correction de l'Erreur 2) ---
+            
+            // A. Empêcher de choisir une mauvaise date si une case est déjà cochée
+            if (start && end) {
+                let conflict = selectedBoxes.some(cb => isBooked(parseInt(cb.value), start, end));
+                if (conflict) {
+                    alert("Les dates sélectionnées entrent en conflit avec un logement que vous avez coché. Veuillez choisir d'autres dates.");
+                    startDateInput.value = '';
+                    endDateInput.value = '';
+                    updateUI(); // Relance la fonction pour tout nettoyer
+                    return;
+                }
+            }
+
+            // B. Afficher les dates à éviter sous le calendrier
+            if (selectedBoxes.length > 0) {
+                let busyDatesMsgs = [];
+                selectedBoxes.forEach(cb => {
+                    const accId = parseInt(cb.value);
+                    const accName = cb.nextElementSibling.querySelector('strong').textContent;
+                    
+                    // On cherche les réservations futures pour ce logement
+                    let futureBookings = allConfirmedBookings.filter(b => b.accommodation_id === accId && b.end_date >= today);
+                    
+                    if (futureBookings.length > 0) {
+                        // Transforme l'historique en une belle phrase
+                        let datesStr = futureBookings.map(b => `du <strong>${b.start_date}</strong> au <strong>${b.end_date}</strong>`).join(', ');
+                        busyDatesMsgs.push(`• ${accName} est pris : ${datesStr}`);
+                    }
+                });
+
+                if (busyDatesMsgs.length > 0) {
+                    warningDiv.innerHTML = "<strong>Attention, indisponibilités :</strong><br>" + busyDatesMsgs.join('<br>');
+                    warningDiv.style.display = 'block';
+                } else {
+                    warningDiv.style.display = 'none';
+                }
+            } else {
+                warningDiv.style.display = 'none';
+            }
+        }
+
+        // On écoute TOUT : les calendriers ET les cases à cocher
+        startDateInput.addEventListener('change', updateUI);
+        endDateInput.addEventListener('change', updateUI);
+        checkboxes.forEach(cb => cb.addEventListener('change', updateUI));
+    });
+</script>
+        
+</body>
+</html>

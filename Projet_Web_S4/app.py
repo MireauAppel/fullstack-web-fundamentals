@@ -114,6 +114,37 @@ def book():
     # On redirige vers le tableau de bord client
     return redirect(url_for('dashboard'))
 
+@app.route('/group_booking', methods=['GET', 'POST'])
+def group_booking():
+    if 'user_id' not in session:
+        return redirect(url_for('login'))
+        
+    if request.method == 'POST':
+        user_id = session['user_id']
+        start_date = request.form['start_date']
+        end_date = request.form['end_date']
+        acc_ids = request.form.getlist('accommodation_ids')
+        for acc_id in acc_ids:
+            data_model.create_booking(user_id, acc_id, start_date, end_date)
+        return redirect(url_for('dashboard'))
+        
+    accommodations = data_model.get_all_accommodations()
+    all_bookings = data_model.get_all_bookings()
+    
+    # IMPORTANT : Conversion des objets Row en dictionnaires JSON compatibles
+    confirmed_list = []
+    for b in all_bookings:
+        if b['status'] == 'confirmed':
+            confirmed_list.append({
+                'accommodation_id': b['accommodation_id'],
+                'start_date': b['start_date'],
+                'end_date': b['end_date']
+            })
+    
+    return render_template('group_booking.html', 
+                           accommodations=accommodations, 
+                           bookings=confirmed_list)
+
 @app.route('/dashboard')
 def dashboard():
     """Affiche l'historique des réservations du client"""
