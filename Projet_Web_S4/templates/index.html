@@ -43,10 +43,12 @@
                  data-price="{{ acc['price'] }}"
                  data-desc="{{ acc['description'] }}"
                  data-id="{{ acc['id'] }}"
-                 data-images="andere_huis.jpg,vue2.jpg,vue3.jpg"
+                 data-hover-img="{{acc['gallery_image']}}"
                  title="{{ acc['name'] }}">
                 {{ loop.index }}
-                <img src="{{ url_for('static', filename=acc['image_url']) }}" alt="{{ acc['name'] }}" class="popup-image">
+                <div class="hover-popup">
+                    <img src="{{ url_for('static', filename=acc['image_url']) }}" alt="Aperçu">
+                </div>
             </div>
         {% endfor %}
     </div>
