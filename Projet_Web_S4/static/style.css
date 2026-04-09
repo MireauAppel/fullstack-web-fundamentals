@@ -496,42 +496,6 @@ p.subtitle {
 .btn-accept { background-color: var(--bg-map); } /* Vert sauge */
 .btn-reject { background-color: #DC3545; } /* Rouge vif */
 
-/* =========================================
-   LES IMAGES POPUP AU SURVOL
-   ========================================= */
-
-/* 1. L'état par défaut (Caché) */
-.popup-image {
-    /* Positionnement */
-    position: absolute;
-    bottom: 120%; /* On place l'image au-dessus de la pastille */
-    left: 50%;
-    transform: translateX(-50%); /* On centre l'image par rapport à la pastille */
-    
-    /* Dimensions et style de la photo */
-    width: 300px; /* Taille de l'aperçu */
-    height: 200px;
-    object-fit: cover; /* Recadre l'image proprement pour ne pas l'écraser */
-    border-radius: 8px;
-    box-shadow: var(--shadow-hover);
-    border: 3px solid var(--color-white);
-    
-    /* Le mécanisme de cache-cache */
-    opacity: 0;           /* Totalement transparent */
-    visibility: hidden;   /* Invisible pour la souris */
-    pointer-events: none; /* Empêche les bugs de clic */
-    
-    /* Petite animation d'apparition douce */
-    transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;
-}
-
-/* 2. L'état au survol (Apparition) */
-/* "Quand on survole .map-marker, applique ce style à .popup-image" */
-.map-marker:hover .popup-image {
-    opacity: 1;           /* Totalement opaque */
-    visibility: visible;  /* Visible */
-    transform: translateX(-50%) translateY(-10px); /* Petit bond vers le haut ! */
-}
 
 /* =========================================
    10. PAGE NOTRE HISTOIRE & CARROUSEL
@@ -593,23 +557,67 @@ p.subtitle {
 .carousel-btn.prev { left: 15px; }
 .carousel-btn.next { right: 15px; }
 
-/* Mini galerie dans le panneau de la carte */
-.mini-gallery {
-    display: flex;
-    gap: 10px;
-    justify-content: center;
-    margin: 15px 0;
+/* =========================================
+   11. INTERACTIONS DE LA CARTE (Hover & Galerie)
+   ========================================= */
+
+/* --- 1. L'IMAGE UNIQUE AU SURVOL (Hover Popup) --- */
+.hover-popup {
+    position: absolute;
+    bottom: 130%; /* Place l'image bien au-dessus de la pastille */
+    left: 50%;
+    transform: translateX(-50%) scale(0.8); /* Centré, mais légèrement réduit par défaut */
+    
+    /* Mécanique pour cacher l'image par défaut */
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none; /* Empêche le popup de gêner la souris */
+    
+    /* Animation douce */
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* Petit effet de "rebond" sympa */
+    z-index: 100;
 }
 
+/* L'image à l'intérieur du popup */
+.hover-popup img {
+    width: 140px;
+    height: 90px;
+    object-fit: cover;
+    border-radius: 8px;
+    border: 3px solid var(--color-white); /* Joli cadre blanc */
+    box-shadow: var(--shadow-hover);
+}
+
+/* L'effet d'apparition quand on survole la pastille ! */
+.map-marker:hover .hover-popup {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) scale(1); /* L'image reprend sa taille normale */
+}
+
+
+/* --- 2. LA GALERIE DE PHOTOS AU CLIC (Panneau d'info) --- */
+.mini-gallery {
+    display: flex;
+    flex-wrap: wrap; /* Si beaucoup de photos, elles vont à la ligne */
+    gap: 12px;
+    justify-content: center;
+    margin: 20px 0;
+}
+
+/* Les photos générées par ton JavaScript */
 .mini-gallery img {
-    width: 80px;
+    width: 110px;
     height: 80px;
     object-fit: cover;
     border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-    transition: transform 0.3s ease;
+    box-shadow: var(--shadow-soft);
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
+/* Petit effet de zoom quand le client regarde les photos de la galerie */
 .mini-gallery img:hover {
-    transform: scale(1.1); /* Zoom léger quand on passe la souris */
+    transform: scale(1.1) translateY(-3px); /* Grossit et monte un peu */
+    box-shadow: var(--shadow-hover);
 }
