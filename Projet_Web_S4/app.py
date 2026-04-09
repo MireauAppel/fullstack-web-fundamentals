@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, session, redirect, url_for
 import data_model
+import os
 
 app = Flask(__name__)
 app.secret_key = 'cle_secrete_domaine_lupec'
@@ -17,7 +18,24 @@ def index():
 # ==========================================
 @app.route('/histoire')
 def history():
-    return render_template('history.html')
+    # 1. On définit le chemin vers ton dossier "static"
+    static_folder = os.path.join(app.root_path, 'static')
+    
+    # 2. On crée une liste vide pour stocker nos images
+    misc_images = []
+    
+    # 3. On scanne le dossier
+    if os.path.exists(static_folder):
+        for filename in os.listdir(static_folder):
+            # Si le mot "misc" est dans le nom du fichier (en ignorant les majuscules/minuscules)
+            if 'misc' in filename.lower() and os.path.isfile(os.path.join(static_folder, filename)):
+                misc_images.append(filename)
+                
+    # 4. On trie la liste par ordre alphabétique (misc1.jpg, misc2.jpg...)
+    misc_images.sort()
+
+    # 5. On envoie cette liste à la page HTML !
+    return render_template('history.html', misc_images=misc_images)
 
 # ==========================================
 # ROUTES D'AUTHENTIFICATION
