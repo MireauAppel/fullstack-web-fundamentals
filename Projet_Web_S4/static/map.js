@@ -3,6 +3,7 @@ document.addEventListener("DOMContentLoaded", function() {
     const infoTitle = document.querySelector('#info-panel h3');
     const infoDesc = document.getElementById('info-desc');
     const infoPrice = document.getElementById('info-price');
+    const infoCapacity = document.getElementById('info-capacity');
     const infoLink = document.getElementById('info-link');
     const infoGallery = document.getElementById('info-gallery'); 
 
@@ -11,6 +12,7 @@ document.addEventListener("DOMContentLoaded", function() {
             const name = this.getAttribute('data-name');
             const desc = this.getAttribute('data-desc');
             const price = this.getAttribute('data-price');
+            const capacity = this.getAttribute('data-capacity');
             const id = this.getAttribute('data-id');
             const galleryData = this.getAttribute('data-gallery');
 
@@ -18,6 +20,7 @@ document.addEventListener("DOMContentLoaded", function() {
             if(infoTitle) infoTitle.textContent = name;
             if(infoDesc) infoDesc.textContent = desc;
             if(infoPrice) infoPrice.innerHTML = "<strong>Tarif :</strong> " + price + " € / nuit";
+            if(infoCapacity) infoCapacity.innerHTML = "<strong>Capacité :</strong> " + capacity + " personnes";
 
             // 2. Mise à jour de la galerie (Mode Carrousel)
             if(infoGallery) {
@@ -30,16 +33,15 @@ document.addEventListener("DOMContentLoaded", function() {
                     const carouselContainer = document.createElement('div');
                     carouselContainer.className = 'carousel-container';
                     
-                    // NOUVEAUX STYLES : Taille parfaite et centrée
-                    carouselContainer.style.height = '450px'; // Une belle hauteur
-                    carouselContainer.style.width = '90%';    // Prend 90% du panneau (un peu plus petit)
-                    carouselContainer.style.maxWidth = '700px'; // Ne dépasse jamais cette taille
-                    carouselContainer.style.margin = '20px auto'; // Centre parfaitement la boîte
-                    carouselContainer.style.borderRadius = '15px'; // Bords arrondis
+    
+                    carouselContainer.style.height = '450px'; 
+                    carouselContainer.style.width = '90%';   
+                    carouselContainer.style.maxWidth = '700px'; 
+                    carouselContainer.style.margin = '20px auto';
+                    carouselContainer.style.borderRadius = '15px';
                     let slides = [];
                     let currentSlideIndex = 0;
 
-                    // On crée toutes les images
                     imageArray.forEach((imgName, index) => {
                         let imgElement = document.createElement('img');
                         imgElement.src = "/static/" + imgName.trim(); 

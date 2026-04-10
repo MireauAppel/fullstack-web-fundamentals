@@ -71,6 +71,7 @@
                 <div class="map-marker marker-{{ loop.index }}"
                     data-name="{{ acc['name'] }}"
                     data-price="{{ acc['price'] }}"
+                    data-capacity="{{acc['capacity']}}"
                     data-desc="{{ acc['description'] }}"
                     data-id="{{ acc['id'] }}"
                     data-gallery="{{acc['gallery_image']}}"
@@ -91,6 +92,7 @@
         <h3>Sélectionnez un logement</h3>
         <p id="info-desc">Cliquez sur un numéro de la carte pour afficher ses informations ici.</p>
         <p id="info-price"></p>
+        <p id="info-capacity"></p>
         
         <div id="info-gallery"></div>
         
