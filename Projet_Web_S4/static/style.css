@@ -178,7 +178,6 @@ p.subtitle {
 #info-panel {
     background: var(--color-white);
     padding: 30px;
-    border-radius: 15px;
     box-shadow: var(--shadow-soft);
     min-height: 120px;
     display: flex;
@@ -794,6 +793,7 @@ body.page-accueil {
     
     /* Marge en haut pour laisser de l'espace sous la carte */
     margin-top: 100px; 
+    margin-bottom: 0 !important;
     text-align: center;
     
     /* Optionnel : une légère ombre portée en haut pour la séparation visuelle */
