@@ -763,3 +763,23 @@ p.subtitle {
     margin: 80px auto;
     width: 100%; /* Ne touche pas les bords de l'écran pour plus de finesse */
 }
+
+/* =========================================
+   FOND D'ÉCRAN DE LA PAGE D'ACCUEIL
+   ========================================= */
+body.page-accueil {
+    /* Remplace 'fond-accueil.jpg' par le nom exact de ton image */
+    background-image: url('lupec.png'); 
+    
+    /* Demande à l'image de couvrir tout l'écran sans se déformer */
+    background-size: cover; 
+    
+    /* Centre l'image parfaitement */
+    background-position: center center; 
+    
+    /* Ne pas répéter l'image si l'écran est très grand */
+    background-repeat: no-repeat; 
+    
+    /* Optionnel : fixe l'image pour que seul le contenu défile au scroll */
+    background-attachment: fixed; 
+}
