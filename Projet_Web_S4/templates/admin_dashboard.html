@@ -26,8 +26,15 @@
                 <h1>Toutes les demandes de réservation</h1>
             </div>
 
+            <div class="filter-container">
+                <button class="filter-btn active" data-filter="all">Toutes</button>
+                <button class="filter-btn" data-filter="attente">En attente</button>
+                <button class="filter-btn" data-filter="confirmée">Confirmées</button>
+                <button class="filter-btn" data-filter="refusée">Refusées</button>
+            </div>
+
             {% if bookings %}
-                <table class="data-table">
+                <table class="data-table" id="bookingTable">
                     <thead>
                         <tr>
                             <th>Client (Email)</th>
@@ -54,16 +61,18 @@
                             </td>
                             <td>
                                 {% if b['status'] == 'pending' %}
-                                    <form method="POST" action="/admin/update_booking" class="action-form">
-                                        <input type="hidden" name="booking_id" value="{{ b['id'] }}">
-                                        <input type="hidden" name="status" value="confirmed">
-                                        <button type="submit" class="btn-small btn-accept">Accepter</button>
-                                    </form>
-                                    <form method="POST" action="/admin/update_booking" class="action-form">
-                                        <input type="hidden" name="booking_id" value="{{ b['id'] }}">
-                                        <input type="hidden" name="status" value="refused">
-                                        <button type="submit" class="btn-small btn-reject">Refuser</button>
-                                    </form>
+                                    <div style="display: flex; gap: 5px;">
+                                        <form method="POST" action="/admin/update_booking" class="action-form">
+                                            <input type="hidden" name="booking_id" value="{{ b['id'] }}">
+                                            <input type="hidden" name="status" value="confirmed">
+                                            <button type="submit" class="btn-small btn-accept">Accepter</button>
+                                        </form>
+                                        <form method="POST" action="/admin/update_booking" class="action-form">
+                                            <input type="hidden" name="booking_id" value="{{ b['id'] }}">
+                                            <input type="hidden" name="status" value="refused">
+                                            <button type="submit" class="btn-small btn-reject">Refuser</button>
+                                        </form>
+                                    </div>
                                 {% else %}
                                     <span style="color: #999; font-size: 0.85rem; font-style: italic;">Traitée</span>
                                 {% endif %}
@@ -78,6 +87,37 @@
 
         </div>
     </div>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const filterButtons = document.querySelectorAll('.filter-btn');
+        const tableRows = document.querySelectorAll('#bookingTable tbody tr');
+
+        filterButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                // 1. Gérer l'état visuel des boutons
+                filterButtons.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+
+                const filterValue = btn.getAttribute('data-filter').toLowerCase();
+
+                // 2. Filtrer les lignes
+                tableRows.forEach(row => {
+                    // On récupère le texte du badge de statut (4ème colonne, index 3)
+                    const statusText = row.cells[3].innerText.toLowerCase().trim();
+
+                    if (filterValue === 'all') {
+                        row.style.display = '';
+                    } else if (statusText.includes(filterValue)) {
+                        row.style.display = '';
+                    } else {
+                        row.style.display = 'none';
+                    }
+                });
+            });
+        });
+    });
+    </script>
 
 </body>
 </html>
