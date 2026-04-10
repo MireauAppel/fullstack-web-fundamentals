@@ -663,12 +663,12 @@ p.subtitle {
 }
 
 /* Le grand texte d'introduction */
-.about-main-text {
+.about-subtitle {
     font-family: var(--font-title);
     font-size: 2.8rem;
     color: #333333;
     line-height: 1.3;
-    margin-bottom: 100px;
+    margin-bottom: 0px;
     font-weight: 500;
     max-width: 95%;
 }
@@ -782,4 +782,163 @@ body.page-accueil {
     
     /* Optionnel : fixe l'image pour que seul le contenu défile au scroll */
     background-attachment: fixed; 
+}
+
+/* =========================================
+   NOUVELLE SECTION ACCUEIL (Sous la carte)
+   ========================================= */
+.home-info-section {
+    /* Un fond uni pour cacher l'image en scrollant et rendre le texte lisible */
+    background-color: var(--bg-page); 
+    padding: 80px 20px;
+    
+    /* Marge en haut pour laisser de l'espace sous la carte */
+    margin-top: 100px; 
+    text-align: center;
+    
+    /* Optionnel : une légère ombre portée en haut pour la séparation visuelle */
+    box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.1);
+    position: relative;
+    z-index: 10;
+}
+
+.home-info-container {
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+.home-info-section h2 {
+    font-size: 2.4rem;
+    color: var(--color-primary);
+    margin-bottom: 10px;
+    font-family: 'Lora', serif;
+}
+
+.section-subtitle {
+    color: #555;
+    font-size: 1.15rem;
+    margin-bottom: 60px;
+}
+
+/* La grille Flexbox pour les 3 colonnes */
+.features-grid {
+    display: flex;
+    gap: 40px;
+    justify-content: center;
+    flex-wrap: wrap; /* Permet de passer à la ligne sur mobile */
+}
+
+/* Les petites cartes d'information */
+.feature-card {
+    flex: 1;
+    min-width: 280px;
+    background: #ffffff;
+    padding: 40px 30px;
+    border-radius: 12px;
+    box-shadow: var(--shadow-soft);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.feature-card:hover {
+    transform: translateY(-8px); /* Petit bond au survol */
+    box-shadow: var(--shadow-hover);
+}
+
+.feature-card h3 {
+    color: var(--color-primary);
+    font-size: 1.4rem;
+    margin-bottom: 15px;
+}
+
+.feature-card p {
+    color: #666;
+    line-height: 1.6;
+    font-size: 1rem;
+}
+/* =========================================
+   FOND ET TEXTE D'ACCUEIL (HOVER-IN)
+   ========================================= */
+
+/* Réinitialisation de base */
+body, html {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.home-page {
+    /* Fond de page par défaut */
+    background-color: #f4f4f4; 
+}
+
+/* Le conteneur principal avec l'image de fond */
+.hero {
+    position: relative; /* Pour positionner le texte par-dessus */
+    width: 100%;
+    height: 100vh; /* Toute la hauteur de l'écran */
+    
+    /* REMPLACER AVEC LE CHEMIN EXACT DE VOTRE IMAGE_6.PNG */
+    background-image: url('image_6.png'); 
+    
+    background-size: cover; /* L'image couvre tout le conteneur */
+    background-position: center center; /* Centrer l'image */
+    background-repeat: no-repeat;
+    overflow: hidden; /* Cacher le texte hors-écran */
+}
+
+/* Conteneur pour le texte, pour faciliter le centrage et l'animation */
+.welcome-text-container {
+    position: absolute;
+    top: 15%; /* Placé dans le ciel bleu, environ au premier quart */
+    left: 50%;
+    transform: translateX(-50%); /* Pour centrer horizontalement */
+    width: 100%;
+    text-align: center;
+    z-index: 10;
+    
+    /* --- L'EFFET HOVER-IN (ENTRÉE) EST ICI --- */
+    animation-name: fadeInDown; /* Le nom de l'animation */
+    animation-duration: 2.5s; /* Durée totale (un peu lent pour l'élégance) */
+    animation-delay: 0.5s; /* Petit délai avant de commencer */
+    animation-fill-mode: forwards; /* Le texte reste à sa place finale */
+    
+    /* État initial : Invisible et un peu plus haut */
+    opacity: 0; 
+}
+
+/* Le texte lui-même */
+.welcome-text {
+    /* --- DESIGN ET LISIBILITÉ --- */
+    
+    /* Police traditionnelle avec empattement (comme l'histoire) */
+    font-family: 'Lora', Georgia, 'Times New Roman', serif; 
+    
+    /* Très grand */
+    font-size: 5rem; /* Ajuster selon vos goûts (ex: 4rem - 6rem) */
+    
+    /* Couleur blanche pure pour la lisibilité sur le ciel bleu */
+    color: white; 
+    
+    /* --- SECRET DE LA LISIBILITÉ : L'OMBRE PORTÉE --- */
+    /* Une ombre douce mais distincte qui décolle le texte du ciel */
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.4); 
+    
+    /* Autres réglages de style */
+    text-transform: capitalize; /* "Bienvenue Au Domaine De Lupec" pour plus d'impact */
+    letter-spacing: 0.05em; /* Un peu d'espacement entre les lettres */
+    font-weight: 400; /* Poids normal pour l'élégance */
+    margin: 0;
+}
+
+/* --- DÉFINITION DE L'ANIMATION 'FADE IN DOWN' --- */
+@keyframes fadeInDown {
+    0% {
+        opacity: 0; /* Invisible */
+        top: 0%; /* Plus haut (dans le ciel) */
+    }
+    100% {
+        opacity: 1; /* Complètement visible */
+        top: 10%; /* Sa place finale (dans le ciel, plus bas) */
+    }
 }
