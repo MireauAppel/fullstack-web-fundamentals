@@ -61,7 +61,7 @@ def init_db(db_name=DBFILENAME):
         accommodations = [
             {
                 'name': 'Jasse', 
-                'description': 'Maison familiale spacieuse idéale pour les groupes de moyenne taille. Accès direct au jardin.', 
+                'description': 'Maison familiale spacieuse idéale pour les familles. Accès direct à une belle terrasse.', 
                 'image_url': 'jasse.jpg', 
                 'gallery_image': 'jasse.jpg, jasse1.jpg, jasse2.jpg, jasse3.jpg, jasse4.jpg, jasse5.jpg, jasse6.jpg, jasse7.jpg, jasse8.jpg',
                 'capacity': 8, 
@@ -69,7 +69,7 @@ def init_db(db_name=DBFILENAME):
             },
             {
                 'name': "Avalon", 
-                'description': 'Maison familiale spacieuse idéale pour les petits groupes ou familles. Accès direct au jardin.', 
+                'description': 'Maison familiale spacieuse idéale pour les petites familles. Accès direct à une belle terrasse avec vue sur lamontagne.', 
                 'image_url': 'avalon.jpg', 
                 'gallery_image': 'avalon.jpg, avalon1.jpg, avalon2.jpg, avalon3.jpg, avalon4.jpg, avalon5.jpg, avalon6.jpg',
                 'capacity': 6, 
@@ -93,7 +93,7 @@ def init_db(db_name=DBFILENAME):
             },
             {
                 'name': 'Apartus', 
-                'description': 'Logement de taille moyenne avec poutres apparentes et terrasse privée.', 
+                'description': 'Appartement moderne avec vue sur la montagne, et une belle terrasse. Idéal pour un séjour en petites familles.', 
                 'image_url': 'app.jpg', 
                 'gallery_image': 'app.jpg, app1.jpg, app2.jpg, app3.jpg, app4.jpg, app5.jpg, app6.jpg, app7.jpg',
                 'capacity': 4, 
