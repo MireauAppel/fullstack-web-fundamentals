@@ -1,4 +1,4 @@
-# Plateforme de Réservation de Domaine Rural
+# Plateforme de Réservation du Domaine de Lupec
 
 ## Description
 Ce projet est une application web dédiée à la gestion et à la réservation de logements pour des domaines ruraux proposant une offre d'hébergement complexe (gîtes, maisons, studios, privatisation complète). Contrairement aux plateformes généralistes qui manquent de spatialisation, cette solution permet aux clients de visualiser l'agencement exact du domaine via une carte interactive. L'objectif est d'offrir une vitrine authentique et de simplifier le processus de réservation en évitant les longs échanges par e-mail entre les clients et les propriétaires.
@@ -20,11 +20,11 @@ Ce projet est une application web dédiée à la gestion et à la réservation d
 ## Installation
 1. Cloner le dépôt :
     ```bash
-    git clone [https://github.com/votre-nom-utilisateur/reservation-domaine-rural.git](https://github.com/votre-nom-utilisateur/reservation-domaine-rural.git)
+    git clone [git@etulab.univ-amu.fr:a24007103/web.git]
     ```
 2. Naviguer dans le répertoire du projet :
     ```bash
-    cd reservation-domaine-rural
+    cd Projet_Web_S4
     ```
 3. Créer et activer un environnement virtuel (recommandé) :
     ```bash
@@ -38,11 +38,11 @@ Ce projet est une application web dédiée à la gestion et à la réservation d
     ```
 5. Initialiser la base de données SQLite :
     ```bash
-    python init_db.py
+    python create_db.py
     ```
 6. Lancer l'application :
     ```bash
-    flask run
+    python app.py
     ```
 
 ## Utilisation
