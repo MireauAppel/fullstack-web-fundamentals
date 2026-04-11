@@ -1,62 +1,53 @@
 import sqlite3
 
-
 DBFILENAME = 'lupec_v1.db'
 
 def get_db():
-    """Fonction utilitaire pour se connecter à la base"""
+    """Établit la connexion à la base de données avec accès par nom de colonne."""
     conn = sqlite3.connect(DBFILENAME)
     conn.row_factory = sqlite3.Row 
     return conn
 
-# ==========================================
-# REQUÊTES POUR LES LOGEMENTS (ACCOMMODATION)
-# ==========================================
+# --- GESTION DES LOGEMENTS ---
 
 def get_all_accommodations():
-    """Récupère tous les logements pour la page d'accueil"""
+    """Récupère l'intégralité des logements enregistrés."""
     with get_db() as conn:
         cur = conn.cursor()
         cur.execute("SELECT * FROM accommodation")
         return cur.fetchall()
 
 def get_accommodation_by_id(acc_id):
-    """Récupère un logement spécifique pour sa page de détails"""
+    """Récupère les détails d'un logement par son identifiant unique."""
     with get_db() as conn:
         cur = conn.cursor()
         cur.execute("SELECT * FROM accommodation WHERE id = ?", (acc_id,))
         return cur.fetchone()
 
-# ==========================================
-# REQUÊTES POUR LES UTILISATEURS (USER)
-# ==========================================
+# --- GESTION DES UTILISATEURS ---
 
 def create_user(email, password):
-    """Crée un nouveau compte client"""
+    """Insère un nouvel utilisateur. Retourne False si l'email existe déjà."""
     with get_db() as conn:
         cur = conn.cursor()
         try:
-            # On utilise les '?' pour éviter les failles de sécurité (injections SQL)
             cur.execute("INSERT INTO user (email, password) VALUES (?, ?)", (email, password))
             conn.commit()
             return True
         except sqlite3.IntegrityError:
-            # L'email existe déjà dans la base de données (car email est UNIQUE)
             return False 
 
 def get_user_by_email(email):
-    """Récupère un utilisateur via son email (utile pour la connexion)"""
+    """Récupère un profil utilisateur pour l'authentification."""
     with get_db() as conn:
         cur = conn.cursor()
         cur.execute("SELECT * FROM user WHERE email = ?", (email,))
         return cur.fetchone()
 
-# ==========================================
-# REQUÊTES POUR LES RÉSERVATIONS (BOOKING)
-# ==========================================
+# --- GESTION DES RÉSERVATIONS ---
 
 def create_booking(user_id, accommodation_id, start_date, end_date):
-    """Enregistre une nouvelle demande de réservation"""
+    """Crée une nouvelle demande de réservation au statut 'pending' par défaut."""
     with get_db() as conn:
         cur = conn.cursor()
         cur.execute("""
@@ -66,7 +57,7 @@ def create_booking(user_id, accommodation_id, start_date, end_date):
         conn.commit()
 
 def get_user_bookings(user_id):
-    """Récupère l'historique des réservations pour le tableau de bord d'un client"""
+    """Récupère l'historique des réservations d'un client spécifique."""
     with get_db() as conn:
         cur = conn.cursor()
         cur.execute("""
@@ -78,7 +69,7 @@ def get_user_bookings(user_id):
         return cur.fetchall()
 
 def get_all_bookings():
-    """Récupère TOUTES les réservations pour le tableau de bord de l'Administrateur"""
+    """Récupère l'ensemble des réservations pour l'administration."""
     with get_db() as conn:
         cur = conn.cursor()
         cur.execute("""
@@ -90,7 +81,7 @@ def get_all_bookings():
         return cur.fetchall()
 
 def update_booking_status(booking_id, new_status):
-    """Permet à l'Administrateur d'accepter ou de refuser une réservation"""
+    """Met à jour le statut d'une réservation (confirmed/refused)."""
     with get_db() as conn:
         cur = conn.cursor()
         cur.execute("UPDATE booking SET status = ? WHERE id = ?", (new_status, booking_id))

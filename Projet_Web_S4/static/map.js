@@ -16,29 +16,27 @@ document.addEventListener("DOMContentLoaded", function() {
             const id = this.getAttribute('data-id');
             const galleryData = this.getAttribute('data-gallery');
 
-            // 1. Mise à jour des textes
+            // MàJ des champs texte
             if(infoTitle) infoTitle.textContent = name;
             if(infoDesc) infoDesc.textContent = desc;
             if(infoPrice) infoPrice.innerHTML = "<strong>Tarif :</strong> " + price + " € / nuit";
             if(infoCapacity) infoCapacity.innerHTML = "<strong>Capacité :</strong> " + capacity + " personnes";
 
-            // 2. Mise à jour de la galerie (Mode Carrousel)
+            // MàJ de la galerie (Carrousel)
             if(infoGallery) {
-                infoGallery.innerHTML = ""; // On vide l'ancienne galerie
+                infoGallery.innerHTML = ""; 
                 
-                if (galleryData && galleryData !== "None" && galleryData.trim() !== "") {
+                if (galleryData && galleryData.trim() !== "" && galleryData !== "None") {
                     const imageArray = galleryData.split(','); 
                     
-                   // --- CRÉATION DU CARROUSEL ---
                     const carouselContainer = document.createElement('div');
                     carouselContainer.className = 'carousel-container';
-                    
-    
                     carouselContainer.style.height = '450px'; 
                     carouselContainer.style.width = '90%';   
                     carouselContainer.style.maxWidth = '700px'; 
                     carouselContainer.style.margin = '20px auto';
                     carouselContainer.style.borderRadius = '15px';
+                    
                     let slides = [];
                     let currentSlideIndex = 0;
 
@@ -47,19 +45,17 @@ document.addEventListener("DOMContentLoaded", function() {
                         imgElement.src = "/static/" + imgName.trim(); 
                         imgElement.className = 'carousel-slide';
                         
-                        // La première image est active par défaut
                         if (index === 0) imgElement.classList.add('active'); 
                         
                         slides.push(imgElement);
                         carouselContainer.appendChild(imgElement);
                     });
 
-                    // S'il y a plus d'une image, on ajoute les flèches de navigation
+                    // Contrôles de navigation
                     if (slides.length > 1) {
                         const prevBtn = document.createElement('button');
                         prevBtn.className = 'carousel-btn prev';
                         prevBtn.innerHTML = '&#10094;';
-                        // On réduit un peu la taille des boutons pour ce petit panneau
                         prevBtn.style.padding = '8px 14px'; 
                         prevBtn.style.fontSize = '1.2rem';
                         
@@ -69,15 +65,12 @@ document.addEventListener("DOMContentLoaded", function() {
                         nextBtn.style.padding = '8px 14px';
                         nextBtn.style.fontSize = '1.2rem';
 
-                        // Logique de défilement intégrée
                         const changeSlide = (step) => {
                             slides[currentSlideIndex].classList.remove('active');
-                            // Mathématique astucieuse pour boucler (ex: passer de la dernière à la première)
                             currentSlideIndex = (currentSlideIndex + step + slides.length) % slides.length;
                             slides[currentSlideIndex].classList.add('active');
                         };
 
-                        // Empêche le clic de faire sauter la page (preventDefault)
                         prevBtn.addEventListener('click', (e) => { e.preventDefault(); changeSlide(-1); });
                         nextBtn.addEventListener('click', (e) => { e.preventDefault(); changeSlide(1); });
 
@@ -85,16 +78,13 @@ document.addEventListener("DOMContentLoaded", function() {
                         carouselContainer.appendChild(nextBtn);
                     }
 
-                    // On injecte le tout dans la page
                     infoGallery.appendChild(carouselContainer);
-                    // --- FIN DU CARROUSEL ---
-
                 } else {
                     infoGallery.innerHTML = "<p style='font-size: 0.85rem; color: #888; font-style: italic;'>Aucune photo supplémentaire disponible.</p>";
                 }
             }
 
-            // 3. Mise à jour du bouton
+            // MàJ du lien de réservation
             if(infoLink) {
                 infoLink.href = "/accommodation/" + id;
                 infoLink.style.display = "inline-block";

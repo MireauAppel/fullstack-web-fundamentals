@@ -33,7 +33,6 @@ h1, h2, h3 {
     font-weight: 600;
 }
 
-/* On centre les titres principaux */
 h1 {
     text-align: center;
     font-size: 2.2rem;
@@ -54,7 +53,7 @@ p.subtitle {
     background-color: var(--color-white);
     padding: 15px 40px;
     display: flex;
-    justify-content: space-between; /* Écarte le menu gauche du menu droit */
+    justify-content: space-between;
     align-items: center;
     box-shadow: var(--shadow-soft);
 }
@@ -77,10 +76,9 @@ p.subtitle {
     margin-right: 15px;
 }
 
-/* Boutons stylisés */
 .btn-primary, .btn-secondary {
     padding: 8px 20px;
-    border-radius: 25px; /* Boutons très arrondis comme sur l'image */
+    border-radius: 25px;
     font-weight: 500 !important;
     transition: all 0.3s ease !important;
 }
@@ -96,85 +94,238 @@ p.subtitle {
 }
 
 /* =========================================
-   LA CARTE INTERACTIVE (Basée sur ton image)
+   FOND D'ÉCRAN DE LA PAGE D'ACCUEIL
    ========================================= */
+
+body.page-accueil {
+    background-image: url('lupec.png'); 
+    background-size: cover; 
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-attachment: fixed; 
+}
+
+.home-info-section {
+    background-color: var(--bg-page); 
+    padding: 80px 20px;
+    margin-top: 100px; 
+    margin-bottom: 0 !important;
+    text-align: center;
+    box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.1);
+    position: relative;
+    z-index: 10;
+}
+
+.home-info-container {
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+.home-info-section h2 {
+    font-size: 2.4rem;
+    color: var(--color-primary);
+    margin-bottom: 10px;
+    font-family: 'Lora', serif;
+}
+
+.section-subtitle {
+    color: #555;
+    font-size: 1.15rem;
+    margin-bottom: 60px;
+}
+
+.features-grid {
+    display: flex;
+    gap: 40px;
+    justify-content: center;
+}
+
+.feature-card {
+    flex: 1;
+    min-width: 280px;
+    background: #ffffff;
+    padding: 40px 30px;
+    border-radius: 12px;
+    box-shadow: var(--shadow-soft);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.feature-card:hover {
+    transform: translateY(-8px);
+    box-shadow: var(--shadow-hover);
+}
+
+.feature-card h3 {
+    color: var(--color-primary);
+    font-size: 1.4rem;
+    margin-bottom: 15px;
+}
+
+.feature-card p {
+    color: #666;
+    line-height: 1.6;
+    font-size: 1rem;
+}
+
+/* =========================================
+   FOND ET TEXTE D'ACCUEIL
+   ========================================= */
+
+/* Réinitialisation de base */
+body, html {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.home-page {
+    background-color: #f4f4f4; 
+}
+
+.hero {
+    width: 100%;
+    height: 100vh;
+}
+
+.welcome-text-container {
+    position: absolute;
+    top: 15%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    text-align: center;
+    z-index: 10;
+    animation-name: fadeInDown;
+    animation-duration: 2.5s;
+    animation-delay: 0.5s;
+    animation-fill-mode: forwards;
+    opacity: 0; 
+}
+
+.welcome-text {
+    font-family: 'Lora', Georgia, 'Times New Roman', serif; 
+    font-size: 5rem;
+    color: white;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.4); 
+    text-transform: capitalize;
+    letter-spacing: 0.05em;
+    font-weight: 400;
+    margin: 0;
+}
+
+@keyframes fadeInDown {
+    0% {
+        opacity: 0;
+        top: 0%;
+    }
+    100% {
+        opacity: 1;
+        top: 10%;
+    }
+}
+
+.filter-container {
+    margin-bottom: 25px;
+    display: flex;
+    gap: 12px;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+}
+
+.filter-btn {
+    padding: 8px 18px;
+    border: 2px solid #e0e0e0;
+    background: white;
+    color: #666;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 500;
+    font-size: 0.85rem;
+}
+
+.filter-btn:hover {
+    border-color: var(--color-primary);
+    color: var(--color-primary);
+}
+
+.filter-btn.active {
+    background: var(--color-primary);
+    border-color: var(--color-primary);
+    color: white;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+/* =========================================
+   LA CARTE INTERACTIVE
+   ========================================= */
+
 #domain-map {
     width: 100%;
     max-width: 950px; 
     height: 600px;
     margin: 20px auto 40px auto;
-    
     background-image: url('map_domaine.png');
     background-size: contain;
     background-position: center;
     background-repeat: no-repeat;
-    
     position: relative;
-    
-    /* LES MODIFICATIONS SEAMLESS SONT ICI */
-    background-color: transparent; /* On enlève le fond blanc */
-    box-shadow: none; /* On enlève l'ombre de la boîte */
-    
-    /* ASTUCE PRO : Si ton image a un fond blanc, ceci va le rendre transparent 
-       et fusionner ton dessin avec le pastel de la page ! */
+    background-color: transparent;
+    box-shadow: none;
     mix-blend-mode: multiply; 
 }
-/* L'INSTRUCTION SOUS LA CARTE */
+
 .map-instruction {
     text-align: center;
     font-size: 0.95rem;
-    color: #777777; /* Un gris doux pour ne pas agresser l'œil */
+    color: #777777;
     font-style: italic;
-    margin-top: -20px; /* Remonte le texte légèrement vers l'image */
-    margin-bottom: 40px; /* Laisse de l'espace avant le panneau d'info */
+    margin-top: -20px;
+    margin-bottom: 40px;
 }
 
 /* =========================================
-   LES PASTILLES NUMÉROTÉES (Cercles)
+   LES MARKERS SUR LA CARTE
    ========================================= */
+
 .map-marker {
     position: absolute;
     width: 35px;
     height: 35px;
     background-color: var(--color-white);
     border: 3px solid var(--color-primary);
-    border-radius: 50%; /* Fait un rond parfait */
-    
+    border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    
     font-weight: bold;
     color: var(--color-primary);
     cursor: pointer;
     box-shadow: var(--shadow-soft);
     transition: all 0.3s ease;
-    
-    /* Astuce magique CSS : centre le cercle pile sur la coordonnée */
     transform: translate(-50%, -50%); 
 }
 
 .map-marker:hover {
     background-color: var(--color-primary);
     color: var(--color-white);
-    transform: translate(-50%, -50%) scale(1.2); /* Grossit en restant centré */
+    transform: translate(-50%, -50%) scale(1.2);
     box-shadow: var(--shadow-hover);
     z-index: 10;
 }
 
-/* LES POSITIONS DES PASTILLES SUR TON IMAGE
-   (Tu devras ajuster ces pourcentages à tâtons pour qu'ils tombent 
-   exactement sur les bons bâtiments de ton image) 
-*/
-.marker-1 { top: 40%; left: 65%; } /* Batiment 1: Vieille maison */
-.marker-2 { top: 53%; left: 69%; } /* Batiment 2: Autre maison */
-.marker-3 { top: 68.5%; left: 75%; } /* Batiment 3: Studio Hobbit*/
+.marker-1 { top: 40%; left: 65%; } /* Batiment 1: Jasse */
+.marker-2 { top: 53%; left: 69%; } /* Batiment 2: Avalon */
+.marker-3 { top: 68.5%; left: 75%; } /* Batiment 3: Studio Frodo*/
 .marker-4 { top: 78%; left: 57%; } /* Batiment 4: Studio Gandalf*/
-.marker-5 { top: 68%; left: 63.5%; } /* Batiment 5: Appartement*/
+.marker-5 { top: 68%; left: 63.5%; } /* Batiment 5: Apartus*/
 
 /* =========================================
    6. LE PANNEAU D'INFORMATION
    ========================================= */
+
 #info-panel {
     background: var(--color-white);
     padding: 30px;
@@ -183,7 +334,7 @@ p.subtitle {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    text-align: center; /* On centre le texte du panneau */
+    text-align: center;
 }
 
 #info-panel h3 {
@@ -201,17 +352,19 @@ p.subtitle {
     border-radius: 25px;
     font-weight: 500;
     transition: background-color 0.3s ease;
-    align-self: center; /* Centre le bouton */
+    align-self: center;
 }
 
 #info-link:hover {
     background-color: var(--color-primary);
 }
+
 /* =========================================
-   6. PAGE LOGEMENT (Détails et Formulaire)
+   6. PAGE POUR LE BOOKING DES LOGEMENTS
    ========================================= */
+
 .page-container {
-    max-width: 700px; /* Une largeur agréable pour lire */
+    max-width: 700px; 
     margin: 40px auto;
     padding: 0 20px;
 }
@@ -252,13 +405,12 @@ p.subtitle {
     margin: 30px 0;
 }
 
-/* Le Formulaire Modernisé */
 .booking-form {
     display: flex;
     flex-direction: column;
     gap: 20px;
     max-width: 400px;
-    margin: 0 auto; /* Centre le formulaire */
+    margin: 0 auto;
 }
 
 .form-group {
@@ -272,7 +424,6 @@ p.subtitle {
     color: var(--color-primary);
 }
 
-/* De beaux champs de date */
 .form-group input[type="date"] {
     padding: 12px;
     border: 1px solid #ccc;
@@ -289,10 +440,10 @@ p.subtitle {
 }
 
 .form-submit {
-    display: block !important; /* Force l'affichage */
+    display: block !important;
     visibility: visible !important;
-    background-color: var(--color-primary); /* Assure une couleur de fond */
-    color: var(--color-white) !important; /* Assure que le texte est blanc */
+    background-color: var(--color-primary);
+    color: var(--color-white) !important;
     width: 100%;
     border: none;
     padding: 15px;
@@ -310,8 +461,9 @@ p.subtitle {
 /* =========================================
    7. PAGES D'AUTHENTIFICATION (Login / Register)
    ========================================= */
+
 .auth-container {
-    max-width: 450px; /* Plus étroit qu'une page normale pour faire un beau bloc central */
+    max-width: 450px;
     margin: 60px auto;
     padding: 0 20px;
 }
@@ -333,10 +485,9 @@ p.subtitle {
     display: flex;
     flex-direction: column;
     gap: 20px;
-    text-align: left; /* On remet le texte à gauche pour les labels */
+    text-align: left;
 }
 
-/* On généralise le style des inputs pour l'email et le mot de passe */
 .form-group input[type="email"],
 .form-group input[type="password"],
 .form-group input[type="text"] {
@@ -348,7 +499,7 @@ p.subtitle {
     color: var(--color-text);
     outline: none;
     transition: border-color 0.3s ease;
-    width: 100%; /* Prend toute la largeur disponible */
+    width: 100%;
     box-sizing: border-box;
 }
 
@@ -384,22 +535,21 @@ p.subtitle {
     font-size: 0.95rem;
     text-align: center;
     font-weight: 500;
-    animation: fadeIn 0.3s ease-in-out; /* Petite animation d'apparition */
+    animation: fadeIn 0.3s ease-in-out;
 }
 
 .alert-error {
-    background-color: #FDE8E8; /* Rouge très pastel */
-    color: #C81E1E;            /* Texte rouge foncé lisible */
+    background-color: #FDE8E8;
+    color: #C81E1E;
     border: 1px solid #FBC4C4;
 }
 
 .alert-success {
-    background-color: #E6F4EA; /* Vert très pastel */
-    color: #1E8E3E;            /* Texte vert foncé */
+    background-color: #E6F4EA;
+    color: #1E8E3E;
     border: 1px solid #CEEAD6;
 }
 
-/* Animation douce quand le message apparaît */
 @keyframes fadeIn {
     from { opacity: 0; transform: translateY(-10px); }
     to { opacity: 1; transform: translateY(0); }
@@ -408,8 +558,9 @@ p.subtitle {
 /* =========================================
    9. TABLEAUX DE BORD (Client & Admin)
    ========================================= */
+
 .dashboard-container {
-    max-width: 1000px; /* Plus large pour accueillir un tableau */
+    max-width: 1000px;
     margin: 40px auto;
     padding: 0 20px;
 }
@@ -432,10 +583,9 @@ p.subtitle {
 
 .dashboard-header h1 {
     margin: 0;
-    text-align: left; /* On aligne à gauche pour le tableau de bord */
+    text-align: left;
 }
 
-/* Le Tableau de données */
 .data-table {
     width: 100%;
     border-collapse: collapse;
@@ -459,7 +609,6 @@ p.subtitle {
     background-color: #fcfcfc;
 }
 
-/* Les Badges de Statut */
 .status-badge {
     padding: 6px 12px;
     border-radius: 20px;
@@ -470,11 +619,10 @@ p.subtitle {
     min-width: 90px;
 }
 
-.status-pending { background-color: #FFF3CD; color: #856404; }    /* Jaune */
-.status-confirmed { background-color: #D4EDDA; color: #155724; }  /* Vert */
-.status-refused { background-color: #F8D7DA; color: #721C24; }    /* Rouge */
+.status-pending { background-color: #FFF3CD; color: #856404; }  
+.status-confirmed { background-color: #D4EDDA; color: #155724; }
+.status-refused { background-color: #F8D7DA; color: #721C24; }
 
-/* Boutons d'action pour l'Admin */
 .action-form {
     display: inline-block;
     margin-right: 5px;
@@ -492,15 +640,15 @@ p.subtitle {
 }
 
 .btn-small:hover { opacity: 0.8; }
-.btn-accept { background-color: var(--bg-map); } /* Vert sauge */
-.btn-reject { background-color: #DC3545; } /* Rouge vif */
+.btn-accept { background-color: var(--bg-map); }
+.btn-reject { background-color: #DC3545; }
 
 
 /* =========================================
-   10. CARROUSEL
+   10. CARROUSELS D'IMAGES
+    (Sur les pages d'hébergement et d'histoire)
    ========================================= */
-
-/* Structure de la galerie */
+   
 .carousel-container {
     position: relative;
     width: 100%;
@@ -511,7 +659,6 @@ p.subtitle {
     background-color: #000;
 }
 
-/* Les images du carrousel */
 .carousel-slide {
     position: absolute;
     top: 0;
@@ -520,68 +667,58 @@ p.subtitle {
     height: 100%;
     object-fit: cover;
     opacity: 0;
-    transition: opacity 0.8s ease-in-out; /* Animation de fondu */
+    transition: opacity 0.8s ease-in-out;
 }
 
 .carousel-slide.active {
-    opacity: 1; /* L'image active devient visible */
+    opacity: 1;
 }
 
-/* Les boutons Précédent / Suivant (Design Moderne) */
 .carousel-btn {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
     
-    /* On définit une taille fixe et un rond parfait */
     width: 45px;
     height: 45px;
     border-radius: 50%;
-    
-    /* Le secret d'un centrage absolu du chevron au milieu du bouton */
+  
     display: flex;
     align-items: center;
     justify-content: center;
     
-    /* L'effet moderne : semi-transparent avec flou en arrière-plan (Glassmorphism) */
     background-color: rgba(255, 255, 255, 0.85);
     backdrop-filter: blur(5px);
-    -webkit-backdrop-filter: blur(5px); /* Pour Safari */
     
     color: var(--color-primary);
     border: none;
     cursor: pointer;
     font-size: 1.1rem;
     
-    /* Une ombre très douce pour détacher le bouton de l'image */
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
     transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
     z-index: 10;
 }
 
-/* Effet d'interaction : Le bouton grossit très légèrement et devient blanc pur */
 .carousel-btn:hover { 
     background-color: rgba(255, 255, 255, 1);
-    transform: translateY(-50%) scale(1.1); /* Scale permet de grossir depuis le centre */
+    transform: translateY(-50%) scale(1.1);
     box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
 }
 
 .carousel-btn.prev { left: 20px; }
 .carousel-btn.next { right: 20px; }
 
-/* Ajustements optiques pour contrer le décalage de la police d'écriture */
 .carousel-btn {
-    line-height: 1; /* Assure un centrage vertical parfait au pixel près */
+    line-height: 1;
 }
 
 .carousel-btn.prev { 
-    /* Pousse le chevron vers la gauche */
     padding-right: 2px !important; 
     padding-left: 0 !important;
 }
 
 .carousel-btn.next { 
-    /* Pousse le chevron vers la droite (comme sur ta capture) */
     padding-left: 2px !important; 
     padding-right: 0 !important;
 }
@@ -590,78 +727,56 @@ p.subtitle {
    11. INTERACTIONS DE LA CARTE (Hover & Galerie)
    ========================================= */
 
-/* --- 1. L'IMAGE UNIQUE AU SURVOL (Hover Popup) --- */
 .hover-popup {
     position: absolute;
-    bottom: 130%; /* Place l'image bien au-dessus de la pastille */
+    bottom: 130%;
     left: 50%;
-    transform: translateX(-50%) scale(0.8); /* Centré, mais légèrement réduit par défaut */
+    transform: translateX(-50%) scale(0.8);
     
-    /* Mécanique pour cacher l'image par défaut */
     opacity: 0;
     visibility: hidden;
-    pointer-events: none; /* Empêche le popup de gêner la souris */
+    pointer-events: none;
     
-    /* Animation douce */
-    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* Petit effet de "rebond" sympa */
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     z-index: 100;
 }
 
-/* L'image à l'intérieur du popup */
 .hover-popup img {
     width: 300px;
     height: 200px;
     object-fit: cover;
     border-radius: 8px;
-    border: 3px solid var(--color-white); /* Joli cadre blanc */
+    border: 3px solid var(--color-white);
     box-shadow: var(--shadow-hover);
 }
 
-/* L'effet d'apparition quand on survole la pastille ! */
 .map-marker:hover .hover-popup {
     opacity: 1;
     visibility: visible;
-    transform: translateX(-50%) scale(1); /* L'image reprend sa taille normale */
+    transform: translateX(-50%) scale(1);
 }
 
-
-/* --- 2. LA GALERIE DE PHOTOS AU CLIC (Panneau d'info) --- */
-.mini-gallery {
-    display: flex;
-    flex-wrap: wrap; /* Si beaucoup de photos, elles vont à la ligne */
-    gap: 12px;
-    justify-content: center;
-    margin: 20px 0;
-}
-
-/* Les photos générées par ton JavaScript */
-.mini-gallery img {
-    width: 110px;
-    height: 80px;
-    object-fit: cover;
-    border-radius: 8px;
-    box-shadow: var(--shadow-soft);
-    cursor: pointer;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-/* Petit effet de zoom quand le client regarde les photos de la galerie */
-.mini-gallery img:hover {
-    transform: scale(1.1) translateY(-3px); /* Grossit et monte un peu */
-    box-shadow: var(--shadow-hover);
-}
 
 /* =========================================
-   12. PAGE HISTOIRE (Design Éditorial)
+   12. PAGE HISTOIRE
    ========================================= */
 
 .about-container {
-    max-width: 1200px; /* Plus large pour laisser respirer le design */
+    max-width: 1200px;
     margin: 80px auto;
     padding: 0 40px;
 }
 
-/* Le grand texte d'introduction */
+.about-title {
+    font-size: 5rem;
+    font-family: var(--font-title);
+    color: #2D2D2D;
+    margin-bottom: 40px;
+    text-align: left; 
+    margin-top: 0;
+    letter-spacing: -2px; 
+}
+
 .about-subtitle {
     font-family: var(--font-title);
     font-size: 2.8rem;
@@ -672,27 +787,14 @@ p.subtitle {
     max-width: 95%;
 }
 
-/* Le titre "Notre Histoire" très grand format */
-.about-title {
-    font-size: 5rem;
-    font-family: var(--font-title);
-    color: #2D2D2D;
-    margin-bottom: 40px;
-    text-align: left; /* Aligné à gauche au lieu d'être centré */
-    margin-top: 0;
-    letter-spacing: -2px; /* Rapproche légèrement les lettres pour un effet magazine */
-}
-
-/* La structure de la grille */
 .about-layout {
     display: flex;
     gap: 60px;
     align-items: flex-start;
 }
 
-/* Partie gauche (Grande image) */
 .about-left {
-    flex: 1.2; /* Prend un peu plus de place que la droite */
+    flex: 1.2;
 }
 
 .img-large-left {
@@ -702,6 +804,7 @@ p.subtitle {
     margin-right: auto;
     display: block;
 }
+
 .img-large-right {
     width: 500px;
     height: 500px;
@@ -710,24 +813,22 @@ p.subtitle {
     display: block;
 }
 
-/* Partie droite (Petite image et Textes) */
 .about-right {
     flex: 1;
     display: flex;
     flex-direction: column;
-    align-items: flex-end; /* Pousse le contenu vers la droite */
-    gap: 60px; /* Espace entre l'image et le texte */
+    align-items: flex-end;
+    gap: 60px;
 }
 
 .img-small {
-    width: 60%; /* L'image ne prend que 60% de sa colonne */
+    width: 60%;
     height: auto;
     object-fit: cover;
     display: block;
-    align-self: flex-end; /* S'assure qu'elle est collée à droite */
+    align-self: flex-end;
 }
 
-/* Les colonnes de texte "Services" et "Clients" */
 .about-text-cols {
     display: flex;
     gap: 30px;
@@ -758,220 +859,7 @@ p.subtitle {
     border: 0;
     height: 1px;
     background: linear-gradient(to right, transparent, var(--color-primary), transparent);
-    opacity: 0.5; /* Très subtil, presque en filigrane */
+    opacity: 0.5;
     margin: 80px auto;
-    width: 100%; /* Ne touche pas les bords de l'écran pour plus de finesse */
-}
-
-/* =========================================
-   FOND D'ÉCRAN DE LA PAGE D'ACCUEIL
-   ========================================= */
-body.page-accueil {
-    /* Remplace 'fond-accueil.jpg' par le nom exact de ton image */
-    background-image: url('lupec.png'); 
-    
-    /* Demande à l'image de couvrir tout l'écran sans se déformer */
-    background-size: cover; 
-    
-    /* Centre l'image parfaitement */
-    background-position: center center; 
-    
-    /* Ne pas répéter l'image si l'écran est très grand */
-    background-repeat: no-repeat; 
-    
-    /* Optionnel : fixe l'image pour que seul le contenu défile au scroll */
-    background-attachment: fixed; 
-}
-
-/* =========================================
-   NOUVELLE SECTION ACCUEIL (Sous la carte)
-   ========================================= */
-.home-info-section {
-    /* Un fond uni pour cacher l'image en scrollant et rendre le texte lisible */
-    background-color: var(--bg-page); 
-    padding: 80px 20px;
-    
-    /* Marge en haut pour laisser de l'espace sous la carte */
-    margin-top: 100px; 
-    margin-bottom: 0 !important;
-    text-align: center;
-    
-    /* Optionnel : une légère ombre portée en haut pour la séparation visuelle */
-    box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.1);
-    position: relative;
-    z-index: 10;
-}
-
-.home-info-container {
-    max-width: 1100px;
-    margin: 0 auto;
-}
-
-.home-info-section h2 {
-    font-size: 2.4rem;
-    color: var(--color-primary);
-    margin-bottom: 10px;
-    font-family: 'Lora', serif;
-}
-
-.section-subtitle {
-    color: #555;
-    font-size: 1.15rem;
-    margin-bottom: 60px;
-}
-
-/* La grille Flexbox pour les 3 colonnes */
-.features-grid {
-    display: flex;
-    gap: 40px;
-    justify-content: center;
-    flex-wrap: wrap; /* Permet de passer à la ligne sur mobile */
-}
-
-/* Les petites cartes d'information */
-.feature-card {
-    flex: 1;
-    min-width: 280px;
-    background: #ffffff;
-    padding: 40px 30px;
-    border-radius: 12px;
-    box-shadow: var(--shadow-soft);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.feature-card:hover {
-    transform: translateY(-8px); /* Petit bond au survol */
-    box-shadow: var(--shadow-hover);
-}
-
-.feature-card h3 {
-    color: var(--color-primary);
-    font-size: 1.4rem;
-    margin-bottom: 15px;
-}
-
-.feature-card p {
-    color: #666;
-    line-height: 1.6;
-    font-size: 1rem;
-}
-/* =========================================
-   FOND ET TEXTE D'ACCUEIL (HOVER-IN)
-   ========================================= */
-
-/* Réinitialisation de base */
-body, html {
-    margin: 0;
-    padding: 0;
     width: 100%;
-    height: 100%;
-}
-
-.home-page {
-    /* Fond de page par défaut */
-    background-color: #f4f4f4; 
-}
-
-/* Le conteneur principal avec l'image de fond */
-.hero {
-    position: relative; /* Pour positionner le texte par-dessus */
-    width: 100%;
-    height: 100vh; /* Toute la hauteur de l'écran */
-    
-    /* REMPLACER AVEC LE CHEMIN EXACT DE VOTRE IMAGE_6.PNG */
-    background-image: url('image_6.png'); 
-    
-    background-size: cover; /* L'image couvre tout le conteneur */
-    background-position: center center; /* Centrer l'image */
-    background-repeat: no-repeat;
-    overflow: hidden; /* Cacher le texte hors-écran */
-}
-
-/* Conteneur pour le texte, pour faciliter le centrage et l'animation */
-.welcome-text-container {
-    position: absolute;
-    top: 15%; /* Placé dans le ciel bleu, environ au premier quart */
-    left: 50%;
-    transform: translateX(-50%); /* Pour centrer horizontalement */
-    width: 100%;
-    text-align: center;
-    z-index: 10;
-    
-    /* --- L'EFFET HOVER-IN (ENTRÉE) EST ICI --- */
-    animation-name: fadeInDown; /* Le nom de l'animation */
-    animation-duration: 2.5s; /* Durée totale (un peu lent pour l'élégance) */
-    animation-delay: 0.5s; /* Petit délai avant de commencer */
-    animation-fill-mode: forwards; /* Le texte reste à sa place finale */
-    
-    /* État initial : Invisible et un peu plus haut */
-    opacity: 0; 
-}
-
-/* Le texte lui-même */
-.welcome-text {
-    /* --- DESIGN ET LISIBILITÉ --- */
-    
-    /* Police traditionnelle avec empattement (comme l'histoire) */
-    font-family: 'Lora', Georgia, 'Times New Roman', serif; 
-    
-    /* Très grand */
-    font-size: 5rem; /* Ajuster selon vos goûts (ex: 4rem - 6rem) */
-    
-    /* Couleur blanche pure pour la lisibilité sur le ciel bleu */
-    color: white; 
-    
-    /* --- SECRET DE LA LISIBILITÉ : L'OMBRE PORTÉE --- */
-    /* Une ombre douce mais distincte qui décolle le texte du ciel */
-    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.4); 
-    
-    /* Autres réglages de style */
-    text-transform: capitalize; /* "Bienvenue Au Domaine De Lupec" pour plus d'impact */
-    letter-spacing: 0.05em; /* Un peu d'espacement entre les lettres */
-    font-weight: 400; /* Poids normal pour l'élégance */
-    margin: 0;
-}
-
-/* --- DÉFINITION DE L'ANIMATION 'FADE IN DOWN' --- */
-@keyframes fadeInDown {
-    0% {
-        opacity: 0; /* Invisible */
-        top: 0%; /* Plus haut (dans le ciel) */
-    }
-    100% {
-        opacity: 1; /* Complètement visible */
-        top: 10%; /* Sa place finale (dans le ciel, plus bas) */
-    }
-}
-
-.filter-container {
-    margin-bottom: 25px;
-    display: flex;
-    gap: 12px;
-    justify-content: flex-start;
-    flex-wrap: wrap;
-}
-
-.filter-btn {
-    padding: 8px 18px;
-    border: 2px solid #e0e0e0;
-    background: white;
-    color: #666;
-    border-radius: 25px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    font-family: 'Poppins', sans-serif;
-    font-weight: 500;
-    font-size: 0.85rem;
-}
-
-.filter-btn:hover {
-    border-color: var(--color-primary);
-    color: var(--color-primary);
-}
-
-.filter-btn.active {
-    background: var(--color-primary);
-    border-color: var(--color-primary);
-    color: white;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
 }
