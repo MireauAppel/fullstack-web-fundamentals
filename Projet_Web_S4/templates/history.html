@@ -101,19 +101,12 @@
     const slides = document.querySelectorAll('.carousel-slide');
 
     function changeSlide(step) {
-        // Retire la classe 'active' de l'image actuelle
         if (slides.length > 0) {
             slides[currentSlideIndex].classList.remove('active');
-            
-            // Calcul pour boucler (passer de la dernière à la première)
             currentSlideIndex = (currentSlideIndex + step + slides.length) % slides.length;
-            
-            // Ajoute la classe 'active' à la nouvelle image
             slides[currentSlideIndex].classList.add('active');
         }
     }
-
-    // Défilement automatique toutes les 10 secondes (10000 ms)
     setInterval(() => {
         changeSlide(1);
     }, 5000);
